@@ -8,7 +8,7 @@ Extraído da seção 22 do [Documento Mestre](documento-mestre.md). Esta é a et
 - [ ] Conversar com provedores de pagamento sobre recebedores, split, agenda de repasses e reservas.
 - [ ] Entrevistar potenciais usuários e administradores.
 - [ ] Definir a landing page e o formulário de interesse.
-- [ ] Criar wireframes das jornadas críticas.
+- [x] Criar wireframes das jornadas críticas. → rascunho de baixa fidelidade em [wireframes.md](wireframes.md), cobrindo as 4 jornadas da seção 5.
 - [ ] Simular a economia unitária antes de definir preços.
 - [ ] Planejar um piloto fechado.
 - [ ] Desenvolver a marca definitiva depois dessas validações.
