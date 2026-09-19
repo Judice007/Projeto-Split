@@ -2,6 +2,8 @@
 
 > **Status: rascunho para discussão, não layout final.** Wireframes em ASCII para validar fluxo e informação por tela antes de qualquer decisão visual (cores, tipografia e identidade ficam para a Etapa 6, conforme o [Documento Mestre](documento-mestre.md)). Cobre as 4 jornadas da seção 5 e usa as telas do mapa da seção 11.
 
+> **Versão navegável:** estas mesmas telas existem como protótipo clicável em [`prototipo/index.html`](../prototipo/index.html) (abra o arquivo em qualquer navegador). Também disponível hospedado, para visualização rápida sem baixar nada: https://claude.ai/artifact/LC1q3JBd4qveHEcwf3DYDf
+
 ## Convenções
 
 - `[Botão]` = ação principal
@@ -296,4 +298,4 @@
 
 ## Próxima ação
 
-Usar estes wireframes como roteiro do protótipo clicável da Etapa 2 (Fase 3 do plano de validação — "Protótipo: testar jornadas, pagamento antecipado, repasse, selos e disputa antes do desenvolvimento").
+Usar estes wireframes (ou o protótipo navegável) como roteiro de testes com usuários reais na Fase 3 do plano de validação — "Protótipo: testar jornadas, pagamento antecipado, repasse, selos e disputa antes do desenvolvimento".
