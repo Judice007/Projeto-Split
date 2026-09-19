@@ -2,8 +2,8 @@
 
 Extraído da seção 22 do [Documento Mestre](documento-mestre.md). Esta é a etapa atual do roadmap (ver [roadmap.md](roadmap.md)).
 
-- [ ] Criar a matriz de serviços e verificar modalidades aptas ao piloto.
-- [ ] Desenhar o fluxo financeiro completo: entrada, renovação, repasse, estorno, chargeback e encerramento.
+- [x] Criar a matriz de serviços e verificar modalidades aptas ao piloto. → rascunho em [matriz-servicos.md](matriz-servicos.md); todas as linhas ainda pendentes de verificação com fonte oficial.
+- [x] Desenhar o fluxo financeiro completo: entrada, renovação, repasse, estorno, chargeback e encerramento. → rascunho em [fluxo-financeiro.md](fluxo-financeiro.md); pendente de validação jurídica, contábil e com o parceiro de pagamentos.
 - [ ] Consultar especialista jurídico em marketplace, pagamentos, consumidor, contratos e LGPD.
 - [ ] Conversar com provedores de pagamento sobre recebedores, split, agenda de repasses e reservas.
 - [ ] Entrevistar potenciais usuários e administradores.
