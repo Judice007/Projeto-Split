@@ -1,0 +1,731 @@
+<title>Protótipo Split</title>
+<style>
+:root{
+  --bg:#F3F5F6;
+  --surface:#FFFFFF;
+  --surface-2:#EAEDF0;
+  --border:#DCE1E6;
+  --text:#161A1F;
+  --muted:#5B6470;
+  --primary:#125C4C;
+  --primary-ink:#FFFFFF;
+  --primary-soft:#E3EFEB;
+  --warn:#8A5A12;
+  --warn-soft:#FBF0DD;
+  --danger:#9B2C2C;
+  --danger-soft:#FBEAEA;
+  --success:#1F7A44;
+  --focus:#125C4C;
+  --shadow: 0 1px 2px rgba(20,25,30,.06), 0 6px 20px rgba(20,25,30,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161A;
+    --surface:#1A2025;
+    --surface-2:#20272D;
+    --border:#2C353C;
+    --text:#EDEFF1;
+    --muted:#98A2AD;
+    --primary:#3FA98B;
+    --primary-ink:#08130F;
+    --primary-soft:#173029;
+    --warn:#E3B265;
+    --warn-soft:#2E2416;
+    --danger:#E58B8B;
+    --danger-soft:#301A1A;
+    --success:#6FCB8F;
+    --focus:#3FA98B;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161A;
+  --surface:#1A2025;
+  --surface-2:#20272D;
+  --border:#2C353C;
+  --text:#EDEFF1;
+  --muted:#98A2AD;
+  --primary:#3FA98B;
+  --primary-ink:#08130F;
+  --primary-soft:#173029;
+  --warn:#E3B265;
+  --warn-soft:#2E2416;
+  --danger:#E58B8B;
+  --danger-soft:#301A1A;
+  --success:#6FCB8F;
+  --focus:#3FA98B;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  padding-inline:16px;
+  padding-block:20px 32px;
+}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace; font-variant-numeric:tabular-nums;}
+
+a{color:inherit;}
+
+.wrap{max-width:1180px;margin-inline:auto;}
+
+.topbar{
+  display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between;
+  margin-bottom:18px;
+}
+.brand{display:flex;flex-direction:column;gap:2px;}
+.brand .name{font-weight:700;font-size:1.05rem;letter-spacing:.01em;}
+.brand .tag{font-size:.78rem;color:var(--muted);}
+.badge-status{
+  font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  padding:5px 10px;border-radius:100px;background:var(--warn-soft);color:var(--warn);
+  border:1px solid color-mix(in srgb, var(--warn) 35%, transparent);
+  white-space:nowrap;
+}
+
+.journey-tabs{
+  display:flex;gap:6px;flex-wrap:wrap;
+  border-bottom:1px solid var(--border);
+  padding-bottom:10px;margin-bottom:18px;
+}
+.jtab{
+  appearance:none;border:1px solid transparent;background:transparent;
+  color:var(--muted);font:inherit;font-size:.85rem;font-weight:600;
+  padding:8px 14px;border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+}
+.jtab .n{
+  width:20px;height:20px;border-radius:6px;background:var(--surface-2);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:.72rem;font-family:"IBM Plex Mono",monospace;color:var(--muted);
+}
+.jtab[aria-selected="true"]{background:var(--primary-soft);color:var(--primary);}
+.jtab[aria-selected="true"] .n{background:var(--primary);color:var(--primary-ink);}
+.jtab:hover{background:var(--surface-2);}
+.jtab:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+
+.layout{
+  display:grid;
+  grid-template-columns: 230px minmax(300px,380px) 1fr;
+  gap:22px;
+  align-items:start;
+}
+@media (max-width: 900px){
+  .layout{grid-template-columns:1fr;}
+}
+
+.rail{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:10px;box-shadow:var(--shadow);
+  position:sticky; top:16px;
+}
+.rail h2{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+  margin:6px 8px 8px;font-weight:700;}
+.rail-item{
+  display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;
+  border:none;background:transparent;color:var(--text);font:inherit;font-size:.83rem;
+  padding:9px 8px;border-radius:9px;cursor:pointer;line-height:1.3;
+}
+.rail-item .idx{
+  flex:none;width:20px;height:20px;border-radius:50%;background:var(--surface-2);
+  color:var(--muted);font-family:"IBM Plex Mono",monospace;font-size:.68rem;
+  display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.rail-item[aria-current="true"]{background:var(--primary-soft);}
+.rail-item[aria-current="true"] .idx{background:var(--primary);color:var(--primary-ink);}
+.rail-item:hover{background:var(--surface-2);}
+.rail-item:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+
+.phone-col{display:flex;flex-direction:column;align-items:center;gap:14px;}
+.phone{
+  width:100%;max-width:340px;aspect-ratio:9/18.5;
+  background:var(--surface);border:1px solid var(--border);border-radius:34px;
+  box-shadow:var(--shadow);
+  padding:14px 12px;overflow:hidden;position:relative;
+}
+.phone-screen{
+  height:100%;overflow-y:auto;border-radius:18px;
+  display:flex;flex-direction:column;gap:12px;
+  scrollbar-width:thin;
+}
+.phone-notch{
+  position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:70px;height:6px;border-radius:100px;background:var(--surface-2);
+}
+
+.nav-controls{display:flex;gap:10px;align-items:center;}
+.nav-btn{
+  border:1px solid var(--border);background:var(--surface);color:var(--text);
+  font:inherit;font-size:.82rem;font-weight:600;padding:8px 14px;border-radius:9px;cursor:pointer;
+}
+.nav-btn:hover{background:var(--surface-2);}
+.nav-btn:disabled{opacity:.4;cursor:not-allowed;}
+.nav-btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
+.step-count{font-size:.78rem;color:var(--muted);font-family:"IBM Plex Mono",monospace;}
+
+.panel{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:18px 20px;box-shadow:var(--shadow);
+}
+.panel h3{margin:0 0 4px;font-size:1rem;}
+.panel .screen-tag{
+  font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;
+  font-family:"IBM Plex Mono",monospace;
+}
+.panel .desc{color:var(--muted);font-size:.88rem;margin:10px 0 14px;line-height:1.5;}
+.note{
+  display:flex;gap:9px;align-items:flex-start;
+  background:var(--warn-soft);color:var(--warn);border:1px solid color-mix(in srgb, var(--warn) 30%, transparent);
+  border-radius:10px;padding:10px 12px;font-size:.83rem;line-height:1.45;margin-top:10px;
+}
+.note b{font-weight:700;}
+.note.pending{background:var(--danger-soft);color:var(--danger);border-color:color-mix(in srgb, var(--danger) 30%, transparent);}
+.journey-caption{
+  margin-top:16px;padding-top:14px;border-top:1px dashed var(--border);
+  font-size:.8rem;color:var(--muted);
+}
+.journey-caption .flow{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--text);
+  display:block;margin-top:6px;line-height:1.6;}
+
+/* mock UI atoms rendered inside the phone */
+.m-topbar{display:flex;justify-content:space-between;align-items:center;font-size:.7rem;color:var(--muted);padding:2px 4px 0;}
+.m-title{font-weight:700;font-size:1rem;padding:0 4px;}
+.m-sub{font-size:.72rem;color:var(--muted);padding:0 4px;margin-top:-8px;}
+.m-card{background:var(--surface-2);border-radius:12px;padding:12px;font-size:.78rem;}
+.m-field{display:flex;flex-direction:column;gap:4px;font-size:.72rem;color:var(--muted);}
+.m-field input, .m-field select{
+  font:inherit;font-size:.78rem;padding:8px 9px;border-radius:8px;border:1px solid var(--border);
+  background:var(--bg);color:var(--text);
+}
+.m-btn{
+  background:var(--primary);color:var(--primary-ink);border:none;border-radius:9px;
+  padding:10px;font-weight:700;font-size:.8rem;text-align:center;cursor:default;
+}
+.m-btn.ghost{background:transparent;color:var(--primary);border:1px solid var(--primary);}
+.m-row{display:flex;justify-content:space-between;gap:8px;font-size:.78rem;}
+.m-list{display:flex;flex-direction:column;gap:8px;}
+.m-chip{display:inline-flex;align-items:center;gap:5px;font-size:.68rem;font-weight:700;
+  padding:3px 8px;border-radius:100px;background:var(--primary-soft);color:var(--primary);}
+.m-chip.warn{background:var(--warn-soft);color:var(--warn);}
+.m-chip.pending{background:var(--danger-soft);color:var(--danger);}
+.m-badgebar{display:flex;gap:6px;flex-wrap:wrap;}
+.m-stat{display:flex;flex-direction:column;gap:2px;}
+.m-stat .v{font-family:"IBM Plex Mono",monospace;font-weight:700;font-size:1.05rem;}
+.m-stat .l{font-size:.66rem;color:var(--muted);}
+.m-checkline{display:flex;gap:8px;align-items:flex-start;font-size:.72rem;color:var(--muted);}
+.m-checkline input{margin-top:2px;}
+.m-timeline{display:flex;flex-direction:column;gap:6px;}
+.m-timeline .t-item{display:flex;gap:8px;font-size:.72rem;}
+.m-timeline .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);margin-top:5px;flex:none;}
+.m-divider{height:1px;background:var(--border);margin:2px 0;}
+.m-star{color:var(--primary);font-size:.72rem;}
+.m-help{font-size:.68rem;color:var(--muted);line-height:1.4;}
+</style>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <span class="name">Projeto Split — Protótipo navegável</span>
+      <span class="tag">Baixa/média fidelidade · sem identidade visual definitiva</span>
+    </div>
+    <span class="badge-status">Rascunho para validação</span>
+  </div>
+
+  <nav class="journey-tabs" id="journeyTabs" role="tablist" aria-label="Jornadas"></nav>
+
+  <div class="layout">
+    <aside class="rail" aria-label="Telas da jornada">
+      <h2>Telas</h2>
+      <div id="railList"></div>
+    </aside>
+
+    <div class="phone-col">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen" id="phoneScreen"></div>
+      </div>
+      <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn">← Anterior</button>
+        <span class="step-count" id="stepCount"></span>
+        <button class="nav-btn" id="nextBtn">Próxima →</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <span class="screen-tag" id="screenTag"></span>
+      <h3 id="screenTitle"></h3>
+      <p class="desc" id="screenDesc"></p>
+      <div id="screenNotes"></div>
+      <div class="journey-caption">
+        Jornada completa (seção 5 do Documento Mestre):
+        <span class="flow" id="journeyFlow"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  const chip = (cls, text) => `<span class="m-chip ${cls}">${text}</span>`;
+
+  const journeys = [
+    {
+      key: "entrada",
+      label: "Entrada de participante",
+      flow: "Criar conta → confirmar contatos → verificar identidade → buscar serviço → analisar grupo → aceitar regras → pagar entrada → receber instruções → confirmar funcionamento → acompanhar cobrança → avaliar experiência",
+      screens: [
+        {
+          title: "Criar conta",
+          tag: "Área pública",
+          desc: "Primeiro contato do participante com a plataforma.",
+          notes: [],
+          html: `
+            <div class="m-topbar"><span>Split</span><span>Entrar</span></div>
+            <div class="m-title">Criar conta</div>
+            <div class="m-card" style="display:flex;flex-direction:column;gap:10px;">
+              <div class="m-field"><label>Nome completo</label><input placeholder="Maria Souza"></div>
+              <div class="m-field"><label>E-mail</label><input placeholder="maria@email.com"></div>
+              <div class="m-field"><label>Celular</label><input placeholder="(11) 9____-____"></div>
+              <div class="m-field"><label>Senha</label><input type="password" placeholder="••••••••"></div>
+              <label class="m-checkline"><input type="checkbox"><span>Li e aceito os Termos e a Política de Privacidade</span></label>
+              <div class="m-btn">Criar conta</div>
+            </div>
+          `
+        },
+        {
+          title: "Confirmar contatos",
+          tag: "Onboarding",
+          desc: "Confirmação de e-mail e celular antes de liberar o restante do fluxo.",
+          notes: [],
+          html: `
+            <div class="m-title">Confirme seus contatos</div>
+            <div class="m-sub">Código enviado para m***@email.com</div>
+            <div class="m-card" style="display:flex;flex-direction:column;gap:10px;">
+              <div class="m-field"><label>Código de verificação</label><input placeholder="______"></div>
+              <div class="m-row"><span class="m-help">Não recebeu?</span><span class="m-help" style="color:var(--primary);font-weight:700;">Reenviar código</span></div>
+              <div class="m-btn">Confirmar</div>
+            </div>
+          `
+        },
+        {
+          title: "Verificar identidade",
+          tag: "Onboarding · Participante",
+          desc: "Etapa de verificação proporcional ao risco.",
+          notes: [
+            { type:"pending", text:"Exigir verificação de todo participante (não só administrador) é uma <b>decisão pendente</b> — este fluxo assume o caminho mais rigoroso." }
+          ],
+          html: `
+            <div class="m-title">Verificar identidade</div>
+            <div class="m-card" style="display:flex;flex-direction:column;gap:10px;">
+              <div class="m-field"><label>CPF</label><input placeholder="000.000.000-00"></div>
+              <div class="m-field"><label>Selfie</label><div class="m-btn ghost">Tirar foto</div></div>
+              <div class="m-help">Usamos isso para reduzir fraude — não é garantia de comportamento futuro do administrador do grupo.</div>
+              <div class="m-btn">Enviar</div>
+            </div>
+          `
+        },
+        {
+          title: "Buscar no marketplace",
+          tag: "Área pública",
+          desc: "Descoberta de grupos públicos com vagas disponíveis.",
+          notes: [],
+          html: `
+            <div class="m-field"><input placeholder="Buscar: streaming de vídeo"></div>
+            <div class="m-badgebar">${chip("", "Categoria")}${chip("", "Preço")}${chip("", "Vagas")}${chip("", "Reputação")}</div>
+            <div class="m-list">
+              <div class="m-card">
+                <div class="m-row"><b>Netflix Família</b><span class="mono">R$ 20/mês</span></div>
+                <div class="m-row"><span>3 vagas</span><span>★★★★☆</span></div>
+                <div class="m-badgebar" style="margin-top:6px;">${chip("", "Identidade verificada")}</div>
+              </div>
+              <div class="m-card">
+                <div class="m-row"><b>Spotify Duo</b><span class="mono">R$ 12/mês</span></div>
+                <div class="m-row"><span>1 vaga</span><span>★★★★★</span></div>
+                <div class="m-badgebar" style="margin-top:6px;">${chip("", "Administrador Pro")}</div>
+              </div>
+              <div class="m-card">
+                <div class="m-row"><b>Google One 2TB</b><span class="mono">R$ 8/mês</span></div>
+                <div class="m-row"><span>4 vagas</span><span>★★★★☆</span></div>
+              </div>
+            </div>
+          `
+        },
+        {
+          title: "Página do grupo",
+          tag: "Área pública",
+          desc: "Todas as condições precisam estar visíveis antes de qualquer pagamento.",
+          notes: [],
+          html: `
+            <div class="m-title">Netflix Família</div>
+            <div class="m-sub">Grupo #1234</div>
+            <div class="m-card" style="display:flex;flex-direction:column;gap:8px;">
+              <div class="m-row"><span>Administradora</span><span>Maria S.</span></div>
+              <div class="m-badgebar">${chip("", "✔ Identidade verificada")}${chip("", "⭐ Confiança")}</div>
+              <div class="m-divider"></div>
+              <div class="m-row"><span>Preço</span><span class="mono">R$ 20,00/mês</span></div>
+              <div class="m-row"><span>Vagas</span><span class="mono">3 de 4</span></div>
+              <div class="m-row"><span>Tempo de atividade</span><span class="mono">8 meses</span></div>
+              <div class="m-row"><span>Saída</span><span class="mono">aviso de 7 dias</span></div>
+              <div class="m-help">Regras: uso pessoal, sem revenda das credenciais.</div>
+            </div>
+            <div class="m-btn">Solicitar entrada</div>
+          `
+        },
+        {
+          title: "Aceitar regras e pagar",
+          tag: "Checkout",
+          desc: "Preço e taxa sempre visíveis antes da confirmação do pagamento.",
+          notes: [
+            { type:"info", text:"Regra do marketplace (seção 12): preço e taxa devem ser apresentados <b>antes</b> do pagamento." },
+            { type:"pending", text:"Valor exato da taxa da plataforma é uma <b>decisão pendente</b>." }
+          ],
+          html: `
+            <div class="m-title">Entrar no grupo</div>
+            <div class="m-card" style="display:flex;flex-direction:column;gap:6px;">
+              <div class="m-row"><span>2 mensalidades</span><span class="mono">R$ 40,00</span></div>
+              <div class="m-row"><span>Taxa da plataforma</span><span class="mono">R$ X,XX</span></div>
+              <div class="m-divider"></div>
+              <div class="m-row"><b>Total</b><b class="mono">R$ XX,XX</b></div>
+              <div class="m-help" style="color:var(--primary);font-weight:700;">Por que 2 mensalidades? Saiba mais</div>
+            </div>
+            <label class="m-checkline"><input type="checkbox"><span>Li e aceito as regras deste grupo</span></label>
+            <label class="m-checkline"><input type="checkbox"><span>Li e aceito os Termos e a Política</span></label>
+            <div class="m-field"><label>Forma de pagamento</label><select><option>Cartão de crédito</option></select></div>
+            <div class="m-btn">Pagar e entrar</div>
+          `
+        },
+        {
+          title: "Instruções de acesso",
+          tag: "Pós-pagamento",
+          desc: "Confirmação e expectativa de prazo para o administrador liberar o acesso.",
+          notes: [],
+          html: `
+            <div class="m-card" style="text-align:center;display:flex;flex-direction:column;gap:6px;">
+              <span style="font-size:1.4rem;">✔</span>
+              <b>Pagamento confirmado</b>
+              <span class="m-help">O administrador foi notificado e tem até 24h para liberar seu acesso.</span>
+            </div>
+            <div class="m-btn ghost">Ver instruções quando disponíveis</div>
+            <div class="m-btn ghost">Reportar problema</div>
+          `
+        },
+        {
+          title: "Minhas assinaturas",
+          tag: "Área do participante",
+          desc: "Acompanhamento contínuo — o motivo do usuário voltar mesmo depois de entrar no grupo.",
+          notes: [],
+          html: `
+            <div class="m-topbar"><span>Dashboard</span><span>Minhas assinaturas</span></div>
+            <div class="m-list">
+              <div class="m-card"><div class="m-row"><b>Netflix Família</b>${chip("", "Ativo")}</div><div class="m-row"><span>Próx. cobrança</span><span class="mono">12/10</span></div></div>
+              <div class="m-card"><div class="m-row"><b>Spotify (pessoal)</b>${chip("", "Ativo")}</div><div class="m-row"><span>Próx. cobrança</span><span class="mono">05/10</span></div></div>
+            </div>
+            <div class="m-row"><span>Gasto mensal total</span><span class="mono">R$ XX,XX</span></div>
+            <div class="m-btn ghost">Confirmar que está funcionando</div>
+            <div class="m-btn ghost">Avaliar experiência</div>
+          `
+        }
+      ]
+    },
+    {
+      key: "criacao",
+      label: "Criação de grupo",
+      flow: "Criar conta → verificar identidade → cadastrar recebimento no mesmo CPF/CNPJ → selecionar serviço elegível → informar plano/preço/vagas/regras → comprovar assinatura → análise → publicar → receber participantes → manter acesso → receber repasses",
+      screens: [
+        {
+          title: "Cadastrar recebimento",
+          tag: "Onboarding · Administrador",
+          desc: "O recebimento precisa estar vinculado ao titular verificado.",
+          notes: [
+            { type:"info", text:"Regra: conta de recebimento deve usar o <b>mesmo CPF/CNPJ</b> já verificado." }
+          ],
+          html: `
+            <div class="m-title">Dados de recebimento</div>
+            <div class="m-card" style="display:flex;flex-direction:column;gap:10px;">
+              <div class="m-field"><label>CPF/CNPJ</label><input placeholder="Mesmo da verificação"></div>
+              <div class="m-field"><label>Chave Pix / conta</label><input placeholder="chave@pix.com"></div>
+              <div class="m-btn">Salvar e continuar</div>
+            </div>
+          `
+        },
+        {
+          title: "Selecionar serviço elegível",
+          tag: "Criação de grupo",
+          desc: "Só serviços com ficha aprovada aparecem como opção.",
+          notes: [
+            { type:"info", text:"Regra de lançamento: nenhum serviço entra só por ser popular — precisa de ficha aprovada." }
+          ],
+          html: `
+            <div class="m-field"><input placeholder="Buscar serviço"></div>
+            <div class="m-list">
+              <div class="m-row"><span>Netflix</span>${chip("", "Elegível")}</div>
+              <div class="m-row"><span>Spotify</span>${chip("", "Elegível")}</div>
+              <div class="m-row"><span>Serviço X</span>${chip("pending", "Não elegível")}</div>
+            </div>
+            <div class="m-btn ghost">Sugerir outro serviço</div>
+          `
+        },
+        {
+          title: "Configurar grupo",
+          tag: "Criação de grupo",
+          desc: "Definição de tipo, plano, preço, vagas e regras.",
+          notes: [],
+          html: `
+            <div class="m-title">Novo grupo — Netflix</div>
+            <div class="m-card" style="display:flex;flex-direction:column;gap:10px;">
+              <div class="m-field"><label>Tipo</label><select><option>Público</option><option>Privado</option></select></div>
+              <div class="m-field"><label>Plano</label><select><option>Família · 4 telas</option></select></div>
+              <div class="m-field"><label>Preço por vaga</label><input placeholder="R$ 20,00"></div>
+              <div class="m-field"><label>Vagas totais</label><input placeholder="4"></div>
+              <div class="m-field"><label>Condição de saída</label><input placeholder="Aviso de 7 dias"></div>
+              <div class="m-btn">Continuar</div>
+            </div>
+          `
+        },
+        {
+          title: "Comprovar e enviar para análise",
+          tag: "Criação de grupo",
+          desc: "Nenhum grupo público entra no marketplace sem análise.",
+          notes: [],
+          html: `
+            <div class="m-card" style="display:flex;flex-direction:column;gap:10px;">
+              <div class="m-field"><label>Comprovante da assinatura ativa</label><div class="m-btn ghost">Anexar arquivo</div></div>
+              <div class="m-help">Seu grupo só aparece no marketplace após análise (pode levar alguns dias).</div>
+              <div class="m-btn">Enviar para análise</div>
+            </div>
+          `
+        },
+        {
+          title: "Meus grupos e repasses",
+          tag: "Área do administrador",
+          desc: "Painel financeiro do administrador, com defasagem de repasse visível.",
+          notes: [
+            { type:"info", text:"O repasse é sempre do <b>ciclo anterior</b> — a defasagem é estrutural, não um atraso." }
+          ],
+          html: `
+            <div class="m-topbar"><span>Meus grupos</span></div>
+            <div class="m-list">
+              <div class="m-card"><div class="m-row"><b>Netflix Família</b>${chip("warn", "Em análise")}</div></div>
+              <div class="m-card"><div class="m-row"><b>Spotify Duo</b>${chip("", "Publicado")}</div><div class="m-row"><span>Vagas</span><span class="mono">1/2</span></div></div>
+            </div>
+            <div class="m-divider"></div>
+            <div class="m-title" style="font-size:.85rem;">Cobranças e repasses</div>
+            <div class="m-row"><span>Próximo repasse</span><span class="mono">R$ XX,XX</span></div>
+            <div class="m-row"><span>Ciclo retido até</span><span class="mono">12/10</span></div>
+            <div class="m-help">⚠ 1 disputa aberta pode atrasar este repasse.</div>
+          `
+        }
+      ]
+    },
+    {
+      key: "gestao",
+      label: "Gestão financeira",
+      flow: "Cadastrar assinatura → informar preço/periodicidade/vencimento → classificar pessoal ou compartilhada → acompanhar totais → receber alertas → revisar gastos e economia",
+      screens: [
+        {
+          title: "Cadastrar assinatura",
+          tag: "Gestor de assinaturas",
+          desc: "Registro manual — funciona mesmo sem participar do marketplace.",
+          notes: [],
+          html: `
+            <div class="m-title">Nova assinatura</div>
+            <div class="m-card" style="display:flex;flex-direction:column;gap:10px;">
+              <div class="m-field"><label>Serviço</label><input placeholder="Ex: iCloud+"></div>
+              <div class="m-field"><label>Preço</label><input placeholder="R$ 10,00"></div>
+              <div class="m-field"><label>Periodicidade</label><select><option>Mensal</option><option>Anual</option></select></div>
+              <div class="m-field"><label>Vencimento</label><input placeholder="dia 05"></div>
+              <div class="m-field"><label>Tipo</label><select><option>Pessoal</option><option>Compartilhada</option></select></div>
+              <div class="m-btn">Salvar</div>
+            </div>
+          `
+        },
+        {
+          title: "Dashboard do gestor",
+          tag: "Gestor de assinaturas",
+          desc: "Visão consolidada do gasto — o motivo de retorno mesmo fora do marketplace.",
+          notes: [],
+          html: `
+            <div class="m-row" style="gap:16px;">
+              <div class="m-stat"><span class="v">R$ 187,40</span><span class="l">gasto mensal</span></div>
+              <div class="m-stat"><span class="v">R$ 2.248,80</span><span class="l">projeção anual</span></div>
+              <div class="m-stat"><span class="v">R$ 340,00</span><span class="l">economia acumulada</span></div>
+            </div>
+            <div class="m-divider"></div>
+            <div class="m-row"><b>Pessoais (4)</b><b>Compartilhadas (3)</b></div>
+            <div class="m-row"><span>Netflix — R$55,90</span><span>Spotify — R$12,00</span></div>
+            <div class="m-row"><span>iCloud+ — R$10,00</span><span>Google One — R$8,00</span></div>
+            <div class="m-help">⚠ Possível sobreposição: 2 serviços de streaming de música ativos.</div>
+            <div class="m-btn ghost">Ver oportunidades de economia</div>
+          `
+        },
+        {
+          title: "Grupos que participo / administro",
+          tag: "Gestor de assinaturas",
+          desc: "Visão unificada de papéis diferentes na plataforma.",
+          notes: [],
+          html: `
+            <div class="m-title" style="font-size:.85rem;">Participo (2)</div>
+            <div class="m-row"><span>Netflix Família</span>${chip("", "Ativo")}</div>
+            <div class="m-divider"></div>
+            <div class="m-title" style="font-size:.85rem;">Administro (1)</div>
+            <div class="m-row"><span>Spotify Duo</span><span class="mono">R$ 12,00 a receber</span></div>
+          `
+        }
+      ]
+    },
+    {
+      key: "disputa",
+      label: "Falha ou encerramento",
+      flow: "Problema reportado → possível bloqueio de repasse → administrador notificado → coleta de evidências → solução/estorno/realocação → registro no histórico → eventual sanção",
+      screens: [
+        {
+          title: "Reportar problema",
+          tag: "Disputas",
+          desc: "Abertura de chamado com motivo estruturado.",
+          notes: [],
+          html: `
+            <div class="m-title">Reportar problema</div>
+            <div class="m-sub">Netflix Família</div>
+            <div class="m-card" style="display:flex;flex-direction:column;gap:8px;">
+              <label class="m-checkline"><input type="radio" name="r" checked><span>Acesso não fornecido</span></label>
+              <label class="m-checkline"><input type="radio" name="r"><span>Acesso removido antes do fim do período</span></label>
+              <label class="m-checkline"><input type="radio" name="r"><span>Plano diferente do anunciado</span></label>
+              <label class="m-checkline"><input type="radio" name="r"><span>Cobrança incorreta</span></label>
+              <div class="m-field"><label>Descrição</label><input placeholder="Conte o que aconteceu"></div>
+              <div class="m-field"><label>Evidências</label><div class="m-btn ghost">Anexar arquivo</div></div>
+              <div class="m-btn">Abrir disputa</div>
+            </div>
+          `
+        },
+        {
+          title: "Acompanhar disputa",
+          tag: "Disputas",
+          desc: "Transparência do status para as duas partes envolvidas.",
+          notes: [
+            { type:"info", text:"O bloqueio de repasse é uma <b>proteção</b>, não uma retenção automática de todo o saldo do administrador." }
+          ],
+          html: `
+            <div class="m-row"><b>Disputa #567</b>${chip("warn", "Aberta há 2 dias")}</div>
+            <div class="m-help">⚠ Repasse deste ciclo está bloqueado.</div>
+            <div class="m-timeline">
+              <div class="t-item"><span class="dot"></span><span>10/10 — Chamado aberto</span></div>
+              <div class="t-item"><span class="dot"></span><span>10/10 — Administrador notificado</span></div>
+              <div class="t-item"><span class="dot"></span><span>Aguardando evidências (prazo: 3 dias)</span></div>
+            </div>
+            <div class="m-btn ghost">Enviar evidência</div>
+            <div class="m-btn ghost">Ver política de disputas</div>
+          `
+        },
+        {
+          title: "Resultado da disputa",
+          tag: "Disputas",
+          desc: "Encerramento do caso e efeito na reputação de ambas as partes.",
+          notes: [],
+          html: `
+            <div class="m-row"><b>Disputa #567</b>${chip("", "Encerrada")}</div>
+            <div class="m-card">
+              <b>Resultado</b>
+              <div class="m-help">Estorno parcial + realocação para grupo compatível.</div>
+            </div>
+            <div class="m-help">⚠ Este caso foi registrado no histórico de reputação das partes envolvidas.</div>
+            <div class="m-btn ghost">Ver grupos compatíveis</div>
+          `
+        }
+      ]
+    }
+  ];
+
+  let jIndex = 0, sIndex = 0;
+
+  const journeyTabs = document.getElementById("journeyTabs");
+  const railList = document.getElementById("railList");
+  const phoneScreen = document.getElementById("phoneScreen");
+  const screenTag = document.getElementById("screenTag");
+  const screenTitle = document.getElementById("screenTitle");
+  const screenDesc = document.getElementById("screenDesc");
+  const screenNotes = document.getElementById("screenNotes");
+  const journeyFlow = document.getElementById("journeyFlow");
+  const stepCount = document.getElementById("stepCount");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  function renderTabs(){
+    journeyTabs.innerHTML = journeys.map((j, i) => `
+      <button class="jtab" role="tab" data-j="${i}" aria-selected="${i===jIndex}">
+        <span class="n">${i+1}</span>${j.label}
+      </button>
+    `).join("");
+  }
+
+  function renderRail(){
+    const j = journeys[jIndex];
+    railList.innerHTML = j.screens.map((s, i) => `
+      <button class="rail-item" data-s="${i}" aria-current="${i===sIndex}">
+        <span class="idx">${i+1}</span><span>${s.title}</span>
+      </button>
+    `).join("");
+  }
+
+  function renderScreen(){
+    const j = journeys[jIndex];
+    const s = j.screens[sIndex];
+    phoneScreen.innerHTML = s.html;
+    screenTag.textContent = s.tag;
+    screenTitle.textContent = s.title;
+    screenDesc.textContent = s.desc;
+    screenNotes.innerHTML = (s.notes || []).map(n =>
+      `<div class="note ${n.type === 'pending' ? 'pending' : ''}">${n.type === 'pending' ? '⚠' : 'ℹ'}<span>${n.text}</span></div>`
+    ).join("");
+    journeyFlow.textContent = j.flow;
+    stepCount.textContent = `Tela ${sIndex+1} de ${j.screens.length}`;
+    prevBtn.disabled = (jIndex===0 && sIndex===0);
+    nextBtn.disabled = (jIndex===journeys.length-1 && sIndex===journeys[jIndex].screens.length-1);
+    renderTabs();
+    renderRail();
+    try{ localStorage.setItem("split-proto-pos", JSON.stringify({jIndex, sIndex})); }catch(e){}
+  }
+
+  journeyTabs.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-j]");
+    if(!btn) return;
+    jIndex = Number(btn.dataset.j);
+    sIndex = 0;
+    renderScreen();
+  });
+
+  railList.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-s]");
+    if(!btn) return;
+    sIndex = Number(btn.dataset.s);
+    renderScreen();
+  });
+
+  prevBtn.addEventListener("click", () => {
+    if(sIndex > 0){ sIndex--; }
+    else if(jIndex > 0){ jIndex--; sIndex = journeys[jIndex].screens.length - 1; }
+    renderScreen();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    const j = journeys[jIndex];
+    if(sIndex < j.screens.length - 1){ sIndex++; }
+    else if(jIndex < journeys.length - 1){ jIndex++; sIndex = 0; }
+    renderScreen();
+  });
+
+  try{
+    const saved = JSON.parse(localStorage.getItem("split-proto-pos") || "null");
+    if(saved && journeys[saved.jIndex] && journeys[saved.jIndex].screens[saved.sIndex]){
+      jIndex = saved.jIndex; sIndex = saved.sIndex;
+    }
+  }catch(e){}
+
+  renderScreen();
+})();
+</script>
