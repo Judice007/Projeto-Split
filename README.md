@@ -10,6 +10,12 @@ Este repositório ainda não contém código de produto. Antes de desenvolver, o
 
 > "O principal risco seria começar pelo código antes de validar as regras."
 
+## Protótipo navegável
+
+Um protótipo clicável de baixa/média fidelidade das 4 jornadas críticas (entrada de participante, criação de grupo, gestão financeira, disputa/encerramento) está disponível em [`prototipo/index.html`](prototipo/index.html) — abra o arquivo em qualquer navegador. Sem identidade visual definitiva de propósito.
+
+Versão hospedada para visualização rápida: https://claude.ai/artifact/LC1q3JBd4qveHEcwf3DYDf
+
 ## Estrutura do repositório
 
 ```
@@ -18,6 +24,11 @@ docs/
   decisoes-pendentes.md      Lista de decisões que ainda faltam ser tomadas
   proximos-passos.md         Checklist acionável da Etapa 1 (Fundamentos)
   roadmap.md                 As 6 etapas do roadmap, com critérios de avanço
+  matriz-servicos.md         Rascunho de serviços candidatos ao piloto
+  fluxo-financeiro.md        Rascunho do fluxo financeiro completo (entrada, repasse, disputa, estorno)
+  wireframes.md              Wireframes de baixa fidelidade das jornadas críticas
+prototipo/
+  index.html                 Protótipo navegável (HTML/CSS/JS puro, sem build)
 ```
 
 ## Como contribuir com este momento do projeto
@@ -30,4 +41,4 @@ docs/
 
 ## Próxima etapa
 
-Ver [docs/proximos-passos.md](docs/proximos-passos.md) para as ações prioritárias da Etapa 1 (Fundamentos): matriz de serviços elegíveis, fluxo financeiro completo, consulta jurídica, conversa com parceiros de pagamento, entrevistas com usuários e wireframes das jornadas críticas.
+Ver [docs/proximos-passos.md](docs/proximos-passos.md) para as ações prioritárias da Etapa 1 (Fundamentos): matriz de serviços elegíveis, fluxo financeiro completo, consulta jurídica, conversa com parceiros de pagamento, entrevistas com usuários — a maior parte já iniciada, o restante depende de conversas humanas reais (jurídico, parceiro de pagamento, usuários).
