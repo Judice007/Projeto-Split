@@ -2,10 +2,11 @@
 <meta name="description" content="Todas as suas assinaturas em um só lugar. Compartilhe quando puder. Economize quando quiser. Entre na lista de interessados do Projeto Split.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F4F6F2;
+  --bg-2:#EEF2EA;
   --surface:#FFFFFF;
   --surface-2:#EBEFE9;
   --border:#DCE3DA;
@@ -21,10 +22,12 @@
   --warn:#8A5A12;
   --warn-soft:#FBF0DD;
   --shadow: 0 1px 2px rgba(18,32,25,.05), 0 12px 32px rgba(18,32,25,.08);
+  --shadow-lg: 0 4px 10px rgba(18,32,25,.06), 0 24px 56px rgba(18,32,25,.12);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#0E1613;
+    --bg-2:#101A16;
     --surface:#152019;
     --surface-2:#1B2820;
     --border:#2A362D;
@@ -40,10 +43,12 @@
     --warn:#E3B265;
     --warn-soft:#2E2416;
     --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.4);
+    --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 30px 70px rgba(0,0,0,.5);
   }
 }
 :root[data-theme="dark"]{
   --bg:#0E1613;
+  --bg-2:#101A16;
   --surface:#152019;
   --surface-2:#1B2820;
   --border:#2A362D;
@@ -59,123 +64,178 @@
   --warn:#E3B265;
   --warn-soft:#2E2416;
   --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.4);
+  --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 30px 70px rgba(0,0,0,.5);
 }
 
 *{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
 body{
   margin:0;background:var(--bg);color:var(--ink);
   font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   -webkit-font-smoothing:antialiased;
 }
 .display{font-family:"Fraunces",Georgia,"Times New Roman",serif;text-wrap:balance;}
+.display-i{font-family:"Fraunces",Georgia,serif;font-style:italic;font-weight:600;}
 .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;}
 a{color:inherit;}
-img{max-width:100%;}
+img,svg{max-width:100%;}
 
-.container{max-width:1080px;margin-inline:auto;padding-inline:20px;}
-section{padding-block:56px;}
-@media (min-width:800px){ section{padding-block:88px;} }
+.container{max-width:1100px;margin-inline:auto;padding-inline:20px;}
+section{padding-block:60px;}
+@media (min-width:800px){ section{padding-block:96px;} }
+
+/* reveal-on-scroll, degrades to visible */
+.reveal{opacity:1;transform:none;}
+@media (prefers-reduced-motion: no-preference){
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+}
+
+/* logomark */
+.mark{display:inline-flex;flex:none;}
+.mark svg{display:block;}
 
 /* nav */
 .nav{
   position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
-  background:color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter:blur(8px);
+  background:color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter:blur(10px);
   border-bottom:1px solid var(--border);
 }
 .nav-row{
-  max-width:1080px;margin-inline:auto;padding:14px 20px;
+  max-width:1100px;margin-inline:auto;padding:13px 20px;
   display:flex;align-items:center;justify-content:space-between;gap:16px;
 }
-.wordmark{display:flex;align-items:baseline;gap:8px;font-weight:700;font-size:1.05rem;}
-.wordmark .prov{font-size:.68rem;color:var(--muted);font-weight:500;}
+.wordmark{display:flex;align-items:center;gap:9px;font-weight:700;font-size:1.05rem;}
+.wordmark .prov{font-size:.66rem;color:var(--muted);font-weight:500;margin-left:2px;}
 .nav a.cta{
   background:var(--primary);color:var(--primary-ink);
   padding:9px 16px;border-radius:9px;font-weight:600;font-size:.86rem;
-  text-decoration:none;white-space:nowrap;
+  text-decoration:none;white-space:nowrap;transition:background .15s ease;
 }
 .nav a.cta:hover{background:var(--primary-dark);}
 
 /* hero */
-.hero{padding-top:52px;}
+.hero{padding-top:56px;padding-bottom:32px;position:relative;overflow:hidden;}
+.hero::before{
+  content:"";position:absolute;inset:-20% -10% auto -10%;height:520px;z-index:-1;
+  background:radial-gradient(60% 60% at 30% 20%, color-mix(in srgb, var(--primary) 14%, transparent), transparent 70%),
+             radial-gradient(50% 50% at 85% 10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+}
 .eyebrow{
   display:inline-flex;align-items:center;gap:8px;font-size:.76rem;font-weight:600;
   letter-spacing:.04em;text-transform:uppercase;color:var(--primary);
   background:var(--primary-soft);padding:6px 12px;border-radius:100px;
 }
-.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--primary);}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start;margin-top:22px;}
-@media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} }
+.eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--primary);animation:pulse 2.4s ease-in-out infinite;}
+@media (prefers-reduced-motion: reduce){ .eyebrow .dot{animation:none;} }
+@keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:.35;} }
+
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:start;margin-top:24px;}
+@media (max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
 h1{
-  font-size:clamp(2.1rem, 4.4vw, 3.4rem);line-height:1.06;margin:18px 0 0;font-weight:600;
+  font-size:clamp(2.2rem, 4.6vw, 3.6rem);line-height:1.05;margin:18px 0 0;font-weight:600;
 }
-.hero-sub{font-size:1.1rem;color:var(--muted);margin:20px 0 0;max-width:46ch;line-height:1.55;}
-.hero-note{font-size:.85rem;color:var(--muted);margin-top:14px;}
+.hero-sub{font-size:1.12rem;color:var(--muted);margin:20px 0 0;max-width:48ch;line-height:1.6;}
+.hero-note{font-size:.85rem;color:var(--muted);margin-top:16px;display:flex;align-items:center;gap:8px;}
+.hero-note svg{flex:none;color:var(--primary);}
+
+/* mini mock card floating under hero copy */
+.proof{
+  margin-top:36px;background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:16px 18px;box-shadow:var(--shadow);max-width:380px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.proof .row{display:flex;justify-content:space-between;align-items:baseline;}
+.proof .label{font-size:.74rem;color:var(--muted);font-weight:600;}
+.proof .big{font-family:"IBM Plex Mono";font-weight:700;font-size:1.3rem;color:var(--primary);}
+.proof .bars{display:flex;align-items:flex-end;gap:5px;height:34px;}
+.proof .bars i{
+  flex:1;background:var(--primary-soft);border-radius:3px 3px 0 0;display:block;
+}
+.proof .bars i:nth-child(6){background:var(--primary);}
+.proof .foot{font-size:.72rem;color:var(--muted);}
 
 /* form */
 .form-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:18px;
-  padding:26px;box-shadow:var(--shadow);
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  padding:28px;box-shadow:var(--shadow-lg);
 }
-.form-card h2{font-size:1.05rem;margin:0 0 4px;font-family:"IBM Plex Sans";font-weight:700;}
-.form-card .fine{font-size:.82rem;color:var(--muted);margin:0 0 18px;}
+.form-card h2{font-size:1.08rem;margin:0 0 4px;font-weight:700;}
+.form-card .fine{font-size:.82rem;color:var(--muted);margin:0 0 20px;}
 .field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
 .field label{font-size:.78rem;font-weight:600;color:var(--muted);}
 .field input, .field select{
   font:inherit;font-size:.92rem;padding:11px 12px;border-radius:9px;border:1px solid var(--border);
-  background:var(--bg);color:var(--ink);
+  background:var(--bg);color:var(--ink);transition:border-color .15s ease;
 }
-.field input:focus, .field select:focus{outline:2px solid var(--primary);outline-offset:1px;}
+.field input:focus, .field select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);}
 .radio-row{display:flex;gap:10px;flex-wrap:wrap;}
 .radio-opt{
   display:flex;align-items:center;gap:6px;font-size:.85rem;border:1px solid var(--border);
-  padding:8px 12px;border-radius:9px;cursor:pointer;background:var(--bg);
+  padding:8px 12px;border-radius:9px;cursor:pointer;background:var(--bg);transition:border-color .15s ease, background .15s ease;
 }
-.radio-opt input{margin:0;}
+.radio-opt:has(input:checked){border-color:var(--primary);background:var(--primary-soft);}
+.radio-opt input{margin:0;accent-color:var(--primary);}
 .submit-btn{
   width:100%;background:var(--accent);color:var(--accent-ink);border:none;border-radius:10px;
-  padding:13px;font-weight:700;font-size:.95rem;cursor:pointer;margin-top:6px;
+  padding:14px;font-weight:700;font-size:.96rem;cursor:pointer;margin-top:8px;
+  transition:filter .15s ease, transform .1s ease;
 }
 .submit-btn:hover{filter:brightness(0.96);}
+.submit-btn:active{transform:translateY(1px);}
 .submit-btn:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
-.form-status{font-size:.84rem;margin-top:12px;padding:10px 12px;border-radius:9px;display:none;line-height:1.4;}
-.form-status.ok{display:block;background:var(--primary-soft);color:var(--primary-dark);}
+.form-status{font-size:.84rem;margin-top:12px;padding:10px 12px;border-radius:9px;line-height:1.4;}
+.form-status.ok{background:var(--primary-soft);color:var(--primary-dark);}
 .form-status[hidden]{display:none;}
 
+/* icon tiles */
+.icon-tile{
+  width:44px;height:44px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+  background:var(--primary-soft);color:var(--primary);flex:none;
+}
+.icon-tile.amber{background:var(--accent-soft);color:var(--warn);}
+
 /* pain points */
-.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:32px;}
+.pain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:32px;}
 .pain-card{
   background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;
+  display:flex;gap:14px;align-items:flex-start;
 }
-.pain-card .k{font-family:"IBM Plex Mono";font-size:.72rem;color:var(--primary);font-weight:600;}
-.pain-card p{font-size:.92rem;color:var(--muted);line-height:1.5;margin:8px 0 0;}
+.pain-card p{font-size:.92rem;color:var(--ink);line-height:1.5;margin:0;}
 
 .section-head{max-width:640px;}
 .section-head .eyebrow{margin-bottom:14px;}
 h2.h{font-size:clamp(1.5rem,2.6vw,2.1rem);margin:0;font-weight:600;}
-.section-head p{color:var(--muted);margin-top:10px;font-size:1rem;line-height:1.55;}
+.section-head p{color:var(--muted);margin-top:10px;font-size:1rem;line-height:1.6;}
 
 /* pillars */
-.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:32px;}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:32px;}
 .pillar{
-  background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px;
-  display:flex;flex-direction:column;gap:10px;
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:border-color .2s ease, box-shadow .2s ease;
 }
-.pillar .num{font-family:"Fraunces";font-size:1.6rem;color:var(--primary);font-weight:600;}
-.pillar h3{margin:0;font-size:1.05rem;}
-.pillar p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.5;}
+.pillar:hover{border-color:color-mix(in srgb, var(--primary) 40%, var(--border));box-shadow:var(--shadow);}
+.pillar h3{margin:0;font-size:1.08rem;}
+.pillar p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.55;}
 
 /* transparency */
 .split-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px;}
 @media (max-width:720px){ .split-cols{grid-template-columns:1fr;} }
-.col-card{border-radius:16px;padding:24px;border:1px solid var(--border);}
+.col-card{border-radius:16px;padding:26px;border:1px solid var(--border);}
 .col-card.done{background:var(--primary-soft);}
 .col-card.open{background:var(--accent-soft);}
-.col-card h3{margin:0 0 4px;font-size:1rem;}
+.col-card h3{margin:0 0 4px;font-size:1rem;display:flex;align-items:center;gap:8px;}
 .col-card .tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;font-weight:700;}
 .col-card.done .tag{color:var(--primary-dark);}
 .col-card.open .tag{color:var(--warn);}
-.col-card ul{margin:14px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:9px;font-size:.9rem;color:var(--ink);}
+.col-card ul{margin:16px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px;font-size:.9rem;color:var(--ink);}
+.col-card ul li{display:flex;gap:9px;align-items:flex-start;line-height:1.5;}
+.col-card ul li svg{flex:none;margin-top:3px;}
+.col-card.done ul li svg{color:var(--primary-dark);}
+.col-card.open ul li svg{color:var(--warn);}
 
 /* faq */
 .faq{margin-top:28px;display:flex;flex-direction:column;gap:10px;max-width:760px;}
@@ -187,21 +247,28 @@ h2.h{font-size:clamp(1.5rem,2.6vw,2.1rem);margin:0;font-weight:600;}
   display:flex;justify-content:space-between;align-items:center;gap:12px;
 }
 .faq summary::-webkit-details-marker{display:none;}
-.faq summary::after{content:"+";font-size:1.2rem;color:var(--muted);flex:none;}
+.faq summary::after{content:"+";font-size:1.2rem;color:var(--muted);flex:none;transition:transform .15s ease;}
 .faq details[open] summary::after{content:"–";}
-.faq p{margin:0 0 16px;color:var(--muted);font-size:.9rem;line-height:1.6;}
+.faq p{margin:0 0 16px;color:var(--muted);font-size:.9rem;line-height:1.65;}
 
 /* final cta */
 .final-cta{
-  background:var(--primary-dark);color:var(--primary-ink);border-radius:24px;
-  padding:48px 32px;text-align:center;
+  background:var(--primary-dark);color:var(--primary-ink);border-radius:26px;
+  padding:52px 32px;text-align:center;position:relative;overflow:hidden;
 }
+.final-cta::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(60% 90% at 15% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%);
+}
+.final-cta > *{position:relative;}
 .final-cta h2{color:var(--primary-ink);}
 .final-cta p{color:color-mix(in srgb, var(--primary-ink) 78%, transparent);max-width:52ch;margin:12px auto 26px;}
 .final-cta a.cta-big{
   display:inline-block;background:var(--accent);color:var(--accent-ink);
-  padding:14px 28px;border-radius:11px;font-weight:700;text-decoration:none;font-size:1rem;
+  padding:14px 30px;border-radius:11px;font-weight:700;text-decoration:none;font-size:1rem;
+  transition:transform .12s ease;
 }
+.final-cta a.cta-big:hover{transform:translateY(-1px);}
 
 footer{border-top:1px solid var(--border);padding-block:32px;}
 footer .container{display:flex;flex-direction:column;gap:14px;}
@@ -210,12 +277,20 @@ footer .container{display:flex;flex-direction:column;gap:14px;}
   border:1px solid color-mix(in srgb, var(--warn) 30%, transparent);border-radius:12px;padding:14px 16px;
 }
 .disclaimer b{color:var(--warn);}
-footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center;}
 </style>
 
 <nav class="nav">
   <div class="nav-row">
-    <div class="wordmark">Split <span class="prov">(nome provisório)</span></div>
+    <div class="wordmark">
+      <span class="mark" aria-hidden="true">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <circle cx="10.5" cy="13" r="8.5" fill="var(--primary)"/>
+          <circle cx="16.5" cy="13" r="8.5" fill="var(--accent)" fill-opacity=".85"/>
+        </svg>
+      </span>
+      Split <span class="prov">(nome provisório)</span>
+    </div>
     <a class="cta" href="#interesse">Quero participar</a>
   </div>
 </nav>
@@ -224,9 +299,24 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
   <span class="eyebrow"><span class="dot"></span> Lista de interessados aberta · fase de validação</span>
   <div class="hero-grid">
     <div>
-      <h1 class="display">Todas as suas assinaturas em um só lugar.</h1>
+      <h1 class="display">Todas as suas assinaturas<br>em <span class="display-i">um só lugar</span>.</h1>
       <p class="hero-sub">Compartilhe quando puder. Economize quando quiser. O Split está nascendo para reunir marketplace de grupos, gestão de assinaturas e pagamento protegido — e ainda estamos validando cada peça disso com gente de verdade antes de construir.</p>
-      <p class="hero-note">Sem cobrança agora. Isso é uma lista de interesse, não um lançamento.</p>
+      <p class="hero-note">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 1v14M1 8h14"/></svg>
+        Sem cobrança agora. Isso é uma lista de interesse, não um lançamento.
+      </p>
+
+      <div class="proof reveal" aria-hidden="true">
+        <div class="row">
+          <span class="label">Gasto mensal com assinaturas</span>
+          <span class="big">R$ 187,40</span>
+        </div>
+        <div class="bars">
+          <i style="height:40%"></i><i style="height:65%"></i><i style="height:50%"></i>
+          <i style="height:80%"></i><i style="height:60%"></i><i style="height:95%"></i>
+        </div>
+        <div class="foot">Exemplo do gestor de assinaturas — separando gasto pessoal e compartilhado</div>
+      </div>
     </div>
 
     <form class="form-card" id="interesse" data-status="idle">
@@ -260,22 +350,37 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
   </div>
 </header>
 
-<section class="container" aria-labelledby="problema-h">
+<section class="container reveal" aria-labelledby="problema-h">
   <div class="section-head">
     <span class="eyebrow">O problema</span>
     <h2 class="h" id="problema-h">Assinatura dividida no grupo da família é sempre uma bagunça</h2>
     <p>Mensagem, Pix, planilha, cobrança atrasada. Reconhece isso?</p>
   </div>
   <div class="pain-grid">
-    <div class="pain-card"><span class="k">01</span><p>Difícil enxergar o gasto mensal e anual de todas as assinaturas juntas.</p></div>
-    <div class="pain-card"><span class="k">02</span><p>Inadimplência e cobrança manual em grupos compartilhados.</p></div>
-    <div class="pain-card"><span class="k">03</span><p>Nenhuma reputação ou histórico verificável entre desconhecidos.</p></div>
-    <div class="pain-card"><span class="k">04</span><p>Risco de perder o acesso do nada quando o grupo muda de senha ou some.</p></div>
-    <div class="pain-card"><span class="k">05</span><p>Pouca clareza sobre o que pode ou não ser compartilhado, e em quais condições.</p></div>
+    <div class="pain-card">
+      <span class="icon-tile amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 7v5l3 3"/><circle cx="12" cy="12" r="9"/></svg></span>
+      <p>Difícil enxergar o gasto mensal e anual de todas as assinaturas juntas.</p>
+    </div>
+    <div class="pain-card">
+      <span class="icon-tile amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 4h11l3 3v13H5z"/><path d="M9 9h7M9 13h7M9 17h4"/></svg></span>
+      <p>Inadimplência e cobrança manual em grupos compartilhados.</p>
+    </div>
+    <div class="pain-card">
+      <span class="icon-tile amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c1-3.5 3.8-5.5 7-5.5s6 2 7 5.5"/><path d="M17.5 9.5l1.4 1.4M19 8h2"/></svg></span>
+      <p>Nenhuma reputação ou histórico verificável entre desconhecidos.</p>
+    </div>
+    <div class="pain-card">
+      <span class="icon-tile amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="15" r="3.5"/><path d="M10.5 12.5L18 5M15.5 7.5L18 10M18 5l2.5 2.5"/></svg></span>
+      <p>Risco de perder o acesso do nada quando o grupo muda de senha ou some.</p>
+    </div>
+    <div class="pain-card">
+      <span class="icon-tile amber"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><circle cx="12" cy="16" r=".4" fill="currentColor"/></svg></span>
+      <p>Pouca clareza sobre o que pode ou não ser compartilhado, e em quais condições.</p>
+    </div>
   </div>
 </section>
 
-<section class="container" aria-labelledby="pilares-h">
+<section class="container reveal" aria-labelledby="pilares-h">
   <div class="section-head">
     <span class="eyebrow">O que estamos construindo</span>
     <h2 class="h" id="pilares-h">Três peças, uma plataforma</h2>
@@ -283,24 +388,24 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
   </div>
   <div class="pillars">
     <div class="pillar">
-      <span class="num">01</span>
+      <span class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></svg></span>
       <h3>Marketplace de grupos</h3>
       <p>Encontre grupos públicos com vaga, compare preço, reputação do administrador e condições — antes de pagar qualquer coisa.</p>
     </div>
     <div class="pillar">
-      <span class="num">02</span>
+      <span class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 19V10M12 19V5M20 19v-7"/></svg></span>
       <h3>Gestor de assinaturas</h3>
       <p>Veja gasto mensal, projeção anual e economia acumulada — mesmo nas assinaturas que você nunca vai compartilhar.</p>
     </div>
     <div class="pillar">
-      <span class="num">03</span>
+      <span class="icon-tile"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span>
       <h3>Pagamento protegido</h3>
       <p>A plataforma organiza cobrança, agenda de repasse e disputas, para reduzir o risco de ficar sem acesso e sem resposta.</p>
     </div>
   </div>
 </section>
 
-<section class="container" aria-labelledby="transp-h">
+<section class="container reveal" aria-labelledby="transp-h">
   <div class="section-head">
     <span class="eyebrow">Transparência</span>
     <h2 class="h" id="transp-h">O que já decidimos e o que ainda estamos testando</h2>
@@ -311,28 +416,28 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
       <span class="tag">Já decidido</span>
       <h3>Direção do produto</h3>
       <ul>
-        <li>Vai combinar marketplace de grupos com um gestor pessoal de assinaturas.</li>
-        <li>Vai ter grupos públicos (no marketplace) e privados (só por convite).</li>
-        <li>Entrada em grupo público parte de duas mensalidades antecipadas, para proteger quem entra.</li>
-        <li>Administrador recebe com uma defasagem de ciclo, sujeito a regras de segurança.</li>
-        <li>Vai existir identidade verificada para quem administra grupos públicos.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8.5l3.2 3.2L13 4.5"/></svg> Vai combinar marketplace de grupos com um gestor pessoal de assinaturas.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8.5l3.2 3.2L13 4.5"/></svg> Vai ter grupos públicos (no marketplace) e privados (só por convite).</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8.5l3.2 3.2L13 4.5"/></svg> Entrada em grupo público parte de duas mensalidades antecipadas, para proteger quem entra.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8.5l3.2 3.2L13 4.5"/></svg> Administrador recebe com uma defasagem de ciclo, sujeito a regras de segurança.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8.5l3.2 3.2L13 4.5"/></svg> Vai existir identidade verificada para quem administra grupos públicos.</li>
       </ul>
     </div>
     <div class="col-card open">
       <span class="tag">Ainda em validação</span>
       <h3>O que depende de você e de especialistas</h3>
       <ul>
-        <li>Quais assinaturas entram no piloto — isso depende de checar as regras de cada fornecedor.</li>
-        <li>Valor exato da taxa da plataforma e do plano Administrador Pro.</li>
-        <li>Parceiro de pagamento e os detalhes de repasse e estorno.</li>
-        <li>Se pagar duas mensalidades na entrada realmente faz sentido pra quem participa.</li>
-        <li>Nome comercial e identidade visual — isso vem depois da validação, de propósito.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 2" stroke-linecap="round"/></svg> Quais assinaturas entram no piloto — depende de checar as regras de cada fornecedor.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 2" stroke-linecap="round"/></svg> Valor exato da taxa da plataforma e do plano Administrador Pro.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 2" stroke-linecap="round"/></svg> Parceiro de pagamento e os detalhes de repasse e estorno.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 2" stroke-linecap="round"/></svg> Se pagar duas mensalidades na entrada realmente faz sentido pra quem participa.</li>
+        <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 2" stroke-linecap="round"/></svg> Nome comercial e identidade visual — isso vem depois da validação, de propósito.</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section class="container" aria-labelledby="faq-h">
+<section class="container reveal" aria-labelledby="faq-h">
   <div class="section-head">
     <span class="eyebrow">Perguntas prováveis</span>
     <h2 class="h" id="faq-h">Antes que você pergunte</h2>
@@ -357,7 +462,7 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
   </div>
 </section>
 
-<section class="container">
+<section class="container reveal">
   <div class="final-cta">
     <h2 class="h display">Quer ajudar a decidir como isso vai funcionar?</h2>
     <p>Entrar na lista agora significa opinar antes do produto existir, não só usar depois que ele estiver pronto.</p>
@@ -371,7 +476,15 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
       <b>Aviso:</b> o Projeto Split está em fase de concepção e validação. Nome, preços, taxas e regras operacionais descritos aqui são hipóteses e podem mudar. Este material é estratégico e não substitui parecer jurídico, contábil, tributário ou regulatório.
     </p>
     <div class="meta">
-      <span>Projeto Split — nome interno provisório</span>
+      <span class="wordmark" style="font-size:.85rem;">
+        <span class="mark" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 26 26" fill="none">
+            <circle cx="10.5" cy="13" r="8.5" fill="var(--primary)"/>
+            <circle cx="16.5" cy="13" r="8.5" fill="var(--accent)" fill-opacity=".85"/>
+          </svg>
+        </span>
+        Split — nome interno provisório
+      </span>
       <span>Responsável: Felipe Júdice</span>
     </div>
   </div>
@@ -416,5 +529,25 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
 
     window.location.href = mailto;
   });
+
+  try{
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+      document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+    } else if("IntersectionObserver" in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add("in");
+            io.unobserve(entry.target);
+          }
+        });
+      }, {threshold:0.12});
+      document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+    } else {
+      document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+    }
+  }catch(err){
+    document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+  }
 })();
 </script>
