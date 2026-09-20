@@ -24,6 +24,12 @@ Um protótipo clicável de baixa/média fidelidade das 4 jornadas críticas (ent
 
 Versão hospedada para visualização rápida: https://claude.ai/artifact/LC1q3JBd4qveHEcwf3DYDf
 
+## Simulador de economia unitária
+
+Calculadora interativa em [`ferramentas/economia-unitaria.html`](ferramentas/economia-unitaria.html) para testar quanto a taxa da plataforma precisa cobrir (gateway de pagamento, chargeback, disputas, impostos) antes de sobrar margem, e a sensibilidade dessa margem ao preço da cota. Os valores padrão são estimativas de referência, não números confirmados com um parceiro de pagamentos.
+
+Versão hospedada para visualização rápida: https://claude.ai/artifact/SnBqBxTzXoFhLi7dHvMS5P
+
 ## Estrutura do repositório
 
 ```
@@ -39,6 +45,8 @@ prototipo/
   index.html                 Protótipo navegável (HTML/CSS/JS puro, sem build)
 landing/
   index.html                 Landing page de captação de interessados (HTML/CSS/JS puro, sem build)
+ferramentas/
+  economia-unitaria.html     Simulador interativo de economia unitária (HTML/CSS/JS puro, sem build)
 ```
 
 ## Como contribuir com este momento do projeto
