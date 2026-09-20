@@ -1,0 +1,461 @@
+<title>Simulador de Unit Economics</title>
+<meta name="description" content="Simulação da economia unitária do Projeto Split: quanto a taxa da plataforma precisa cobrir e qual margem sobra por transação.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F6;
+  --surface:#FFFFFF;
+  --surface-2:#EAEDF0;
+  --border:#DCE1E6;
+  --text:#161A1F;
+  --muted:#5B6470;
+  --primary:#125C4C;
+  --primary-ink:#FFFFFF;
+  --primary-soft:#E3EFEB;
+  --warn:#8A5A12;
+  --warn-soft:#FBF0DD;
+  --danger:#9B2C2C;
+  --danger-soft:#FBEAEA;
+  --success:#1F7A44;
+  --success-soft:#E6F3EA;
+  --focus:#125C4C;
+  --shadow: 0 1px 2px rgba(20,25,30,.06), 0 6px 20px rgba(20,25,30,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161A;
+    --surface:#1A2025;
+    --surface-2:#20272D;
+    --border:#2C353C;
+    --text:#EDEFF1;
+    --muted:#98A2AD;
+    --primary:#3FA98B;
+    --primary-ink:#08130F;
+    --primary-soft:#173029;
+    --warn:#E3B265;
+    --warn-soft:#2E2416;
+    --danger:#E58B8B;
+    --danger-soft:#301A1A;
+    --success:#6FCB8F;
+    --success-soft:#173029;
+    --focus:#3FA98B;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161A;
+  --surface:#1A2025;
+  --surface-2:#20272D;
+  --border:#2C353C;
+  --text:#EDEFF1;
+  --muted:#98A2AD;
+  --primary:#3FA98B;
+  --primary-ink:#08130F;
+  --primary-soft:#173029;
+  --warn:#E3B265;
+  --warn-soft:#2E2416;
+  --danger:#E58B8B;
+  --danger-soft:#301A1A;
+  --success:#6FCB8F;
+  --success-soft:#173029;
+  --focus:#3FA98B;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  padding-inline:16px;padding-block:24px 40px;
+}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;}
+.wrap{max-width:1180px;margin-inline:auto;}
+
+header.page{margin-bottom:22px;}
+.eyebrow{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--primary);}
+h1{font-size:1.5rem;margin:6px 0 6px;font-weight:700;}
+header.page p{color:var(--muted);font-size:.92rem;max-width:70ch;line-height:1.55;margin:0;}
+
+.layout{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start;}
+@media (max-width:920px){ .layout{grid-template-columns:1fr;} }
+
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:20px;box-shadow:var(--shadow);
+}
+.card + .card{margin-top:16px;}
+
+fieldset{border:none;margin:0 0 20px;padding:0;}
+fieldset:last-child{margin-bottom:0;}
+legend{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+  padding:0;margin-bottom:12px;}
+.field{margin-bottom:14px;}
+.field:last-child{margin-bottom:0;}
+.field label{
+  display:flex;justify-content:space-between;gap:8px;font-size:.82rem;font-weight:600;margin-bottom:6px;
+}
+.field label .val{font-family:"IBM Plex Mono";font-weight:700;color:var(--primary);}
+.field input[type="range"]{width:100%;accent-color:var(--primary);}
+.field input[type="number"]{
+  width:100%;font:inherit;font-size:.86rem;padding:8px 10px;border-radius:8px;
+  border:1px solid var(--border);background:var(--bg);color:var(--text);
+}
+.field .hint{font-size:.74rem;color:var(--muted);margin-top:4px;line-height:1.4;}
+
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+.stat{
+  background:var(--surface-2);border-radius:12px;padding:14px 16px;
+  display:flex;flex-direction:column;gap:4px;
+}
+.stat .l{font-size:.72rem;color:var(--muted);font-weight:600;}
+.stat .v{font-family:"IBM Plex Mono";font-weight:700;font-size:1.3rem;}
+.stat.hero{background:var(--primary-soft);}
+.stat.hero .v{color:var(--primary);}
+.stat.bad{background:var(--danger-soft);}
+.stat.bad .v{color:var(--danger);}
+.stat .sub{font-size:.72rem;color:var(--muted);margin-top:2px;}
+
+.section-title{font-size:.95rem;font-weight:700;margin:0 0 4px;}
+.section-desc{font-size:.82rem;color:var(--muted);margin:0 0 14px;}
+
+/* breakdown bar */
+.breakdown{margin-top:6px;}
+.bar{
+  display:flex;height:34px;border-radius:9px;overflow:hidden;border:1px solid var(--border);
+}
+.bar .seg{display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:#fff;
+  white-space:nowrap;overflow:hidden;}
+.bar .seg.gateway{background:#5B7CA6;}
+.bar .seg.chargeback{background:var(--danger);}
+.bar .seg.disputa{background:var(--warn);}
+.bar .seg.imposto{background:#7A6BA6;}
+.bar .seg.margem{background:var(--success);}
+.legend{display:flex;flex-wrap:wrap;gap:10px 16px;margin-top:12px;font-size:.78rem;color:var(--muted);}
+.legend span{display:inline-flex;align-items:center;gap:6px;}
+.legend .dot{width:9px;height:9px;border-radius:2px;flex:none;}
+.dot.gateway{background:#5B7CA6;}
+.dot.chargeback{background:var(--danger);}
+.dot.disputa{background:var(--warn);}
+.dot.imposto{background:#7A6BA6;}
+.dot.margem{background:var(--success);}
+
+/* sensitivity table */
+table{width:100%;border-collapse:collapse;font-size:.85rem;}
+th, td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--border);}
+th:first-child, td:first-child{text-align:left;}
+thead th{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;}
+tbody tr.current{background:var(--primary-soft);}
+td.pos{color:var(--success);font-weight:600;}
+td.neg{color:var(--danger);font-weight:600;}
+.table-scroll{overflow-x:auto;}
+
+.note{
+  font-size:.8rem;color:var(--muted);line-height:1.55;background:var(--warn-soft);
+  border:1px solid color-mix(in srgb, var(--warn) 30%, transparent);border-radius:10px;
+  padding:12px 14px;margin-top:18px;
+}
+.note b{color:var(--warn);}
+</style>
+
+<div class="wrap">
+  <header class="page">
+    <span class="eyebrow">Fundamentos · Etapa 1</span>
+    <h1>Simulador de economia unitária</h1>
+    <p>Quanto a taxa da plataforma (seção 8 do Documento Mestre) precisa cobrir — gateway de pagamento, chargeback, disputas e impostos — antes de sobrar margem. Ajuste as premissas à esquerda; tudo recalcula na hora. Valores iniciais são hipóteses, não dados confirmados.</p>
+  </header>
+
+  <div class="layout">
+    <div>
+      <div class="card">
+        <fieldset>
+          <legend>Transação</legend>
+          <div class="field">
+            <label for="preco">Preço da cota (mensal) <span class="val mono" id="v-preco">R$ 20,00</span></label>
+            <input type="range" id="preco" min="5" max="80" step="1" value="20">
+          </div>
+          <div class="field">
+            <label for="taxaPerc">Taxa da plataforma <span class="val mono" id="v-taxaPerc">10,0%</span></label>
+            <input type="range" id="taxaPerc" min="0" max="30" step="0.5" value="10">
+          </div>
+          <div class="field">
+            <label for="taxaMin">Taxa mínima fixa <span class="val mono" id="v-taxaMin">R$ 1,00</span></label>
+            <input type="range" id="taxaMin" min="0" max="5" step="0.1" value="1">
+            <div class="hint">Cobrada quando o percentual renderia menos que isso (comum em marketplaces).</div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Custo do gateway de pagamento</legend>
+          <div class="field">
+            <label for="gwPerc">Percentual do gateway <span class="val mono" id="v-gwPerc">3,5%</span></label>
+            <input type="range" id="gwPerc" min="0" max="10" step="0.1" value="3.5">
+          </div>
+          <div class="field">
+            <label for="gwFixo">Custo fixo por transação <span class="val mono" id="v-gwFixo">R$ 0,40</span></label>
+            <input type="range" id="gwFixo" min="0" max="2" step="0.05" value="0.4">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Risco e atendimento</legend>
+          <div class="field">
+            <label for="cbRate">Taxa de chargeback esperada <span class="val mono" id="v-cbRate">1,0%</span></label>
+            <input type="range" id="cbRate" min="0" max="8" step="0.1" value="1">
+          </div>
+          <div class="field">
+            <label for="cbCusto">Custo médio por chargeback <span class="val mono" id="v-cbCusto">R$ 15,00</span></label>
+            <input type="range" id="cbCusto" min="0" max="60" step="1" value="15">
+            <div class="hint">Taxa da adquirente + tempo de atendimento perdido.</div>
+          </div>
+          <div class="field">
+            <label for="dispRate">Disputas com custo operacional <span class="val mono" id="v-dispRate">5,0%</span></label>
+            <input type="range" id="dispRate" min="0" max="30" step="0.5" value="5">
+          </div>
+          <div class="field">
+            <label for="dispCusto">Custo médio de atendimento por disputa <span class="val mono" id="v-dispCusto">R$ 8,00</span></label>
+            <input type="range" id="dispCusto" min="0" max="40" step="1" value="8">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Impostos e escala</legend>
+          <div class="field">
+            <label for="imposto">Impostos sobre a receita da taxa <span class="val mono" id="v-imposto">6,0%</span></label>
+            <input type="range" id="imposto" min="0" max="20" step="0.5" value="6">
+          </div>
+          <div class="field">
+            <label for="cotasAtivas">Cotas pagando por mês <span class="val mono" id="v-cotasAtivas">500</span></label>
+            <input type="range" id="cotasAtivas" min="10" max="20000" step="10" value="500">
+            <div class="hint">Só para ver o efeito em escala — não é uma projeção de demanda.</div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    <div>
+      <div class="card">
+        <p class="section-title">Por transação (uma cota, um ciclo)</p>
+        <p class="section-desc">O que a plataforma cobra, o que gasta, o que sobra.</p>
+        <div class="stat-row">
+          <div class="stat hero">
+            <span class="l">Receita da taxa</span>
+            <span class="v mono" id="s-taxaBruta">R$ 0,00</span>
+          </div>
+          <div class="stat">
+            <span class="l">Custos totais</span>
+            <span class="v mono" id="s-custoTotal">R$ 0,00</span>
+          </div>
+          <div class="stat" id="s-margemCard">
+            <span class="l">Margem líquida</span>
+            <span class="v mono" id="s-margem">R$ 0,00</span>
+            <span class="sub" id="s-margemPerc">0% da receita da taxa</span>
+          </div>
+          <div class="stat">
+            <span class="l">Taxa mínima para empatar</span>
+            <span class="v mono" id="s-breakeven">0,0%</span>
+            <span class="sub">no percentual da cota, mantendo os outros custos</span>
+          </div>
+        </div>
+
+        <div class="breakdown">
+          <div class="bar" id="bar"></div>
+          <div class="legend">
+            <span><span class="dot gateway"></span> Gateway de pagamento</span>
+            <span><span class="dot chargeback"></span> Chargeback esperado</span>
+            <span><span class="dot disputa"></span> Atendimento de disputa</span>
+            <span><span class="dot imposto"></span> Impostos</span>
+            <span><span class="dot margem"></span> Margem líquida</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="section-title">Em escala (mês)</p>
+        <p class="section-desc">Multiplicando pela quantidade de cotas pagando definida à esquerda.</p>
+        <div class="stat-row">
+          <div class="stat">
+            <span class="l">Receita da taxa no mês</span>
+            <span class="v mono" id="m-receita">R$ 0</span>
+          </div>
+          <div class="stat">
+            <span class="l">Custos no mês</span>
+            <span class="v mono" id="m-custo">R$ 0</span>
+          </div>
+          <div class="stat hero">
+            <span class="l">Margem líquida no mês</span>
+            <span class="v mono" id="m-margem">R$ 0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p class="section-title">Sensibilidade por preço de cota</p>
+        <p class="section-desc">Mantendo a taxa percentual e os demais custos fixos desta simulação, como a margem muda com o preço da cota.</p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Preço da cota</th><th>Receita da taxa</th><th>Custos totais</th><th>Margem líquida</th><th>Margem sobre taxa</th></tr>
+            </thead>
+            <tbody id="sens-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="note">
+        <b>Isso é uma calculadora de hipóteses, não uma previsão.</b> Os valores padrão (taxa de chargeback, custo de disputa, percentual de gateway) não vêm de um parceiro de pagamentos real — são estimativas de referência para começar a conversa. Antes de fixar preço e taxa, confirme os números reais com o parceiro de pagamentos e o jurídico (ver <code>decisoes-pendentes.md</code> e <code>fluxo-financeiro.md</code>).
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var ids = ["preco","taxaPerc","taxaMin","gwPerc","gwFixo","cbRate","cbCusto","dispRate","dispCusto","imposto","cotasAtivas"];
+  var els = {};
+  ids.forEach(function(id){ els[id] = document.getElementById(id); });
+
+  function brl(n){
+    return "R$ " + n.toLocaleString("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+  function brl0(n){
+    return "R$ " + Math.round(n).toLocaleString("pt-BR");
+  }
+  function pct(n, casas){
+    return n.toLocaleString("pt-BR", {minimumFractionDigits: casas==null?1:casas, maximumFractionDigits: casas==null?1:casas}) + "%";
+  }
+
+  function readInputs(){
+    return {
+      preco: parseFloat(els.preco.value),
+      taxaPerc: parseFloat(els.taxaPerc.value),
+      taxaMin: parseFloat(els.taxaMin.value),
+      gwPerc: parseFloat(els.gwPerc.value),
+      gwFixo: parseFloat(els.gwFixo.value),
+      cbRate: parseFloat(els.cbRate.value),
+      cbCusto: parseFloat(els.cbCusto.value),
+      dispRate: parseFloat(els.dispRate.value),
+      dispCusto: parseFloat(els.dispCusto.value),
+      imposto: parseFloat(els.imposto.value),
+      cotasAtivas: parseFloat(els.cotasAtivas.value)
+    };
+  }
+
+  function compute(inp, precoOverride){
+    var preco = precoOverride == null ? inp.preco : precoOverride;
+    var taxaBruta = Math.max(preco * inp.taxaPerc / 100, inp.taxaMin);
+    var custoGateway = preco * inp.gwPerc / 100 + inp.gwFixo;
+    var custoChargeback = inp.cbRate / 100 * inp.cbCusto;
+    var custoDisputa = inp.dispRate / 100 * inp.dispCusto;
+    var custoImposto = taxaBruta * inp.imposto / 100;
+    var custoTotal = custoGateway + custoChargeback + custoDisputa + custoImposto;
+    var margem = taxaBruta - custoTotal;
+    var margemPerc = taxaBruta > 0 ? (margem / taxaBruta * 100) : 0;
+
+    var custosSemImposto = custoGateway + custoChargeback + custoDisputa;
+    var denom = (1 - inp.imposto/100);
+    var taxaBrutaBreakeven = denom > 0 ? custosSemImposto / denom : custosSemImposto;
+    var breakevenPerc = preco > 0 ? (taxaBrutaBreakeven / preco * 100) : 0;
+
+    return {
+      preco: preco, taxaBruta: taxaBruta, custoGateway: custoGateway, custoChargeback: custoChargeback,
+      custoDisputa: custoDisputa, custoImposto: custoImposto, custoTotal: custoTotal,
+      margem: margem, margemPerc: margemPerc, breakevenPerc: breakevenPerc
+    };
+  }
+
+  function renderBar(r){
+    var bar = document.getElementById("bar");
+    var total = r.taxaBruta > 0 ? r.taxaBruta : 1;
+    var segs = [
+      {cls:"gateway", val: r.custoGateway, label:"Gateway"},
+      {cls:"chargeback", val: r.custoChargeback, label:"Chargeback"},
+      {cls:"disputa", val: r.custoDisputa, label:"Disputa"},
+      {cls:"imposto", val: r.custoImposto, label:"Impostos"},
+      {cls:"margem", val: Math.max(r.margem,0), label:"Margem"}
+    ];
+    bar.innerHTML = "";
+    segs.forEach(function(s){
+      var pctW = Math.max((s.val / total) * 100, 0);
+      if(pctW < 0.5) return;
+      var div = document.createElement("div");
+      div.className = "seg " + s.cls;
+      div.style.width = pctW + "%";
+      if(pctW > 9){ div.textContent = Math.round(pctW) + "%"; }
+      bar.appendChild(div);
+    });
+  }
+
+  function renderSensitivity(inp){
+    var body = document.getElementById("sens-body");
+    body.innerHTML = "";
+    var base = inp.preco;
+    var prices = [];
+    [0.5, 0.75, 1, 1.5, 2, 3].forEach(function(mult){
+      prices.push(Math.round(base * mult * 100) / 100);
+    });
+    prices = Array.from(new Set(prices)).sort(function(a,b){ return a-b; });
+
+    prices.forEach(function(p){
+      var r = compute(inp, p);
+      var tr = document.createElement("tr");
+      if(Math.abs(p - base) < 0.01) tr.className = "current";
+      var marginClass = r.margem >= 0 ? "pos" : "neg";
+      tr.innerHTML =
+        "<td>" + brl(p) + "</td>" +
+        "<td class='mono'>" + brl(r.taxaBruta) + "</td>" +
+        "<td class='mono'>" + brl(r.custoTotal) + "</td>" +
+        "<td class='mono " + marginClass + "'>" + brl(r.margem) + "</td>" +
+        "<td class='mono " + marginClass + "'>" + pct(r.margemPerc) + "</td>";
+      body.appendChild(tr);
+    });
+  }
+
+  function render(){
+    var inp = readInputs();
+
+    document.getElementById("v-preco").textContent = brl(inp.preco);
+    document.getElementById("v-taxaPerc").textContent = pct(inp.taxaPerc);
+    document.getElementById("v-taxaMin").textContent = brl(inp.taxaMin);
+    document.getElementById("v-gwPerc").textContent = pct(inp.gwPerc);
+    document.getElementById("v-gwFixo").textContent = brl(inp.gwFixo);
+    document.getElementById("v-cbRate").textContent = pct(inp.cbRate);
+    document.getElementById("v-cbCusto").textContent = brl(inp.cbCusto);
+    document.getElementById("v-dispRate").textContent = pct(inp.dispRate);
+    document.getElementById("v-dispCusto").textContent = brl(inp.dispCusto);
+    document.getElementById("v-imposto").textContent = pct(inp.imposto);
+    document.getElementById("v-cotasAtivas").textContent = Math.round(inp.cotasAtivas).toLocaleString("pt-BR");
+
+    var r = compute(inp);
+
+    document.getElementById("s-taxaBruta").textContent = brl(r.taxaBruta);
+    document.getElementById("s-custoTotal").textContent = brl(r.custoTotal);
+    document.getElementById("s-margem").textContent = brl(r.margem);
+    document.getElementById("s-margemPerc").textContent = pct(r.margemPerc) + " da receita da taxa";
+    document.getElementById("s-breakeven").textContent = pct(r.breakevenPerc);
+
+    var margemCard = document.getElementById("s-margemCard");
+    margemCard.classList.remove("hero","bad");
+    margemCard.classList.add(r.margem >= 0 ? "hero" : "bad");
+
+    renderBar(r);
+    renderSensitivity(inp);
+
+    var receitaMes = r.taxaBruta * inp.cotasAtivas;
+    var custoMes = r.custoTotal * inp.cotasAtivas;
+    var margemMes = r.margem * inp.cotasAtivas;
+    document.getElementById("m-receita").textContent = brl0(receitaMes);
+    document.getElementById("m-custo").textContent = brl0(custoMes);
+    document.getElementById("m-margem").textContent = brl0(margemMes);
+  }
+
+  ids.forEach(function(id){
+    els[id].addEventListener("input", render);
+  });
+
+  render();
+})();
+</script>
