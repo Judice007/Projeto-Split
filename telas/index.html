@@ -1,0 +1,571 @@
+<title>Telas do Split</title>
+<meta name="description" content="Mockups de alta fidelidade das telas de login, marketplace e perfil do Projeto Split, para referência de desenvolvimento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F4F6F2;
+  --page-bg:#EDF0EA;
+  --surface:#FFFFFF;
+  --surface-2:#EBEFE9;
+  --border:#DCE3DA;
+  --ink:#122019;
+  --muted:#5B6961;
+  --primary:#12523F;
+  --primary-dark:#0B382B;
+  --primary-ink:#F4FBF7;
+  --primary-soft:#E1EEE7;
+  --accent:#C98A12;
+  --accent-ink:#2A1B02;
+  --accent-soft:#F7E9C9;
+  --warn:#8A5A12;
+  --warn-soft:#FBF0DD;
+  --danger:#9B2C2C;
+  --shadow: 0 1px 2px rgba(18,32,25,.05), 0 12px 32px rgba(18,32,25,.08);
+  --shadow-lg: 0 4px 10px rgba(18,32,25,.06), 0 30px 70px rgba(18,32,25,.14);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161A; --page-bg:#0F1613; --surface:#152019; --surface-2:#1B2820; --border:#2A362D;
+    --ink:#EDF3EE; --muted:#9BAB9F; --primary:#3FA98B; --primary-dark:#2E8069; --primary-ink:#07140F;
+    --primary-soft:#1B322A; --accent:#E3B265; --accent-ink:#2A1B02; --accent-soft:#3A2C13;
+    --warn:#E3B265; --warn-soft:#2E2416; --danger:#E58B8B;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.4);
+    --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 30px 70px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161A; --page-bg:#0F1613; --surface:#152019; --surface-2:#1B2820; --border:#2A362D;
+  --ink:#EDF3EE; --muted:#9BAB9F; --primary:#3FA98B; --primary-dark:#2E8069; --primary-ink:#07140F;
+  --primary-soft:#1B322A; --accent:#E3B265; --accent-ink:#2A1B02; --accent-soft:#3A2C13;
+  --warn:#E3B265; --warn-soft:#2E2416; --danger:#E58B8B;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 36px rgba(0,0,0,.4);
+  --shadow-lg: 0 4px 10px rgba(0,0,0,.4), 0 30px 70px rgba(0,0,0,.5);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  padding-inline:16px;padding-block:24px 48px;
+}
+.display{font-family:"Fraunces",Georgia,serif;text-wrap:balance;}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;}
+a{color:inherit;text-decoration:none;}
+img,svg{max-width:100%;}
+.wrap{max-width:1280px;margin-inline:auto;}
+
+/* page chrome */
+header.page{margin-bottom:20px;}
+.eyebrow{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--primary);}
+h1{font-size:1.5rem;margin:6px 0 6px;font-weight:700;}
+header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55;margin:0;}
+
+.tabs{display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:12px;margin:20px 0 28px;}
+.tab{
+  appearance:none;border:1px solid var(--border);background:var(--surface);color:var(--muted);
+  font:inherit;font-size:.85rem;font-weight:600;padding:9px 16px;border-radius:10px;cursor:pointer;
+  display:flex;align-items:center;gap:8px;
+}
+.tab[aria-selected="true"]{background:var(--primary-soft);color:var(--primary-dark);border-color:transparent;}
+.tab:hover{border-color:var(--primary);}
+
+.screen{display:none;}
+.screen.active{display:block;}
+
+/* browser chrome frame */
+.browser{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow-lg);
+}
+.browser-bar{
+  display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--surface-2);
+  border-bottom:1px solid var(--border);
+}
+.dots{display:flex;gap:6px;}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--border);display:block;}
+.url{
+  flex:1;background:var(--bg);border:1px solid var(--border);border-radius:7px;
+  padding:5px 12px;font-size:.76rem;color:var(--muted);font-family:"IBM Plex Mono",monospace;
+}
+.browser-body{background:var(--page-bg);}
+
+/* shared site nav used inside mockups */
+.site-nav{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:14px 28px;background:var(--surface);border-bottom:1px solid var(--border);
+}
+.wordmark{display:flex;align-items:center;gap:9px;font-weight:700;font-size:1rem;}
+.mark svg{display:block;}
+.nav-links{display:flex;gap:22px;font-size:.86rem;color:var(--muted);font-weight:500;}
+.nav-links a.on{color:var(--ink);font-weight:700;}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.btn{
+  font:inherit;font-size:.84rem;font-weight:700;padding:9px 16px;border-radius:9px;border:none;cursor:pointer;
+}
+.btn.primary{background:var(--accent);color:var(--accent-ink);}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--border);}
+.avatar-chip{
+  width:34px;height:34px;border-radius:50%;background:var(--primary);color:var(--primary-ink);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;flex:none;
+}
+
+/* ===== LOGIN SCREEN ===== */
+.login-wrap{
+  min-height:560px;display:flex;align-items:center;justify-content:center;padding:48px 20px;
+  background:
+    radial-gradient(50% 60% at 15% 10%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 70%),
+    radial-gradient(45% 55% at 90% 90%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 70%);
+}
+.login-card{
+  width:100%;max-width:400px;background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  padding:36px 32px;box-shadow:var(--shadow-lg);
+}
+.login-card .mark{display:flex;justify-content:center;margin-bottom:18px;}
+.login-card h2{text-align:center;font-size:1.4rem;margin:0 0 6px;font-weight:600;}
+.login-card .sub{text-align:center;color:var(--muted);font-size:.86rem;margin:0 0 26px;}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;}
+.field label{font-size:.78rem;font-weight:600;color:var(--muted);}
+.field input{
+  font:inherit;font-size:.92rem;padding:11px 12px;border-radius:9px;border:1px solid var(--border);
+  background:var(--bg);color:var(--ink);
+}
+.field-row{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;margin:-4px 0 18px;}
+.field-row a{color:var(--primary);font-weight:600;}
+.submit-btn{
+  width:100%;background:var(--primary);color:var(--primary-ink);border:none;border-radius:10px;
+  padding:13px;font-weight:700;font-size:.95rem;cursor:pointer;
+}
+.divider{display:flex;align-items:center;gap:12px;margin:22px 0;color:var(--muted);font-size:.76rem;}
+.divider::before, .divider::after{content:"";flex:1;height:1px;background:var(--border);}
+.google-btn{
+  width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--surface);border:1px solid var(--border);border-radius:10px;
+  padding:12px;font-weight:600;font-size:.9rem;cursor:pointer;color:var(--ink);
+}
+.google-btn:hover{background:var(--surface-2);}
+.login-foot{text-align:center;font-size:.84rem;color:var(--muted);margin-top:22px;}
+.login-foot a{color:var(--primary);font-weight:700;}
+.login-legal{text-align:center;font-size:.72rem;color:var(--muted);margin-top:16px;line-height:1.5;}
+
+/* ===== MARKETPLACE SCREEN ===== */
+.mkt-body{padding:26px 28px;}
+.mkt-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+.mkt-head h2{margin:0;font-size:1.3rem;font-weight:700;}
+.mkt-head p{margin:4px 0 0;color:var(--muted);font-size:.86rem;}
+.search-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.search-input{
+  flex:1;min-width:220px;padding:11px 14px;border-radius:10px;border:1px solid var(--border);
+  background:var(--surface);font-size:.88rem;color:var(--ink);
+}
+.chip-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px;}
+.chip{
+  font-size:.78rem;font-weight:600;padding:7px 14px;border-radius:100px;border:1px solid var(--border);
+  background:var(--surface);color:var(--muted);display:flex;align-items:center;gap:6px;
+}
+.chip.on{background:var(--primary-soft);color:var(--primary-dark);border-color:transparent;}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;}
+.group-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;
+  display:flex;flex-direction:column;gap:12px;
+}
+.gc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.gc-service{display:flex;align-items:center;gap:10px;}
+.svc-icon{
+  width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.85rem;color:#fff;flex:none;
+}
+.gc-service .name{font-weight:700;font-size:.94rem;}
+.gc-service .cat{font-size:.72rem;color:var(--muted);}
+.gc-price{text-align:right;}
+.gc-price .v{font-family:"IBM Plex Mono";font-weight:700;font-size:1rem;color:var(--primary);}
+.gc-price .l{font-size:.68rem;color:var(--muted);}
+.gc-badges{display:flex;gap:6px;flex-wrap:wrap;}
+.badge{font-size:.68rem;font-weight:700;padding:3px 8px;border-radius:100px;display:inline-flex;align-items:center;gap:4px;}
+.badge.verified{background:var(--primary-soft);color:var(--primary-dark);}
+.badge.pro{background:var(--accent-soft);color:var(--warn);}
+.badge.trust{background:#EDE7F6;color:#5B3F9E;}
+.gc-admin{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--muted);}
+.gc-admin .mini-avatar{width:22px;height:22px;border-radius:50%;background:var(--surface-2);flex:none;}
+.gc-meta{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);}
+.gc-meta .stars{color:var(--accent);}
+.gc-cta{
+  background:var(--primary);color:var(--primary-ink);border:none;border-radius:9px;padding:10px;
+  font-weight:700;font-size:.84rem;cursor:pointer;text-align:center;
+}
+
+/* ===== PERFIL SCREEN ===== */
+.profile-cover{
+  height:130px;
+  background:linear-gradient(120deg, var(--primary-dark), var(--primary));
+  position:relative;
+}
+.profile-body{padding:0 28px 28px;}
+.profile-head{display:flex;gap:20px;align-items:flex-end;margin-top:-46px;flex-wrap:wrap;}
+.profile-avatar{
+  width:96px;height:96px;border-radius:50%;background:var(--accent);color:var(--accent-ink);
+  display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.8rem;
+  border:5px solid var(--surface);flex:none;
+}
+.profile-info{padding-bottom:6px;flex:1;min-width:220px;}
+.profile-info h2{margin:0;font-size:1.3rem;font-weight:700;}
+.profile-info .since{font-size:.8rem;color:var(--muted);margin-top:2px;}
+.profile-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.profile-actions{display:flex;gap:10px;padding-bottom:6px;}
+
+.stat-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:24px;
+}
+.stat-cell{background:var(--surface);padding:16px;text-align:center;}
+.stat-cell .v{font-family:"IBM Plex Mono";font-weight:700;font-size:1.25rem;}
+.stat-cell .l{font-size:.72rem;color:var(--muted);margin-top:2px;}
+
+.profile-tabs{display:flex;gap:4px;margin-top:26px;border-bottom:1px solid var(--border);}
+.ptab{
+  padding:11px 4px;margin-right:22px;font-size:.86rem;font-weight:600;color:var(--muted);
+  border-bottom:2px solid transparent;cursor:pointer;
+}
+.ptab.on{color:var(--primary-dark);border-color:var(--primary);}
+
+.profile-panel{padding-top:20px;}
+.about-box{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;font-size:.88rem;color:var(--muted);line-height:1.6;}
+.mini-group{
+  display:flex;justify-content:space-between;align-items:center;background:var(--surface);
+  border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;
+}
+.review{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;
+  display:flex;gap:12px;
+}
+.review .mini-avatar{width:34px;height:34px;border-radius:50%;background:var(--surface-2);flex:none;}
+.review .stars{color:var(--accent);font-size:.8rem;}
+.review p{margin:6px 0 0;font-size:.86rem;color:var(--ink);line-height:1.5;}
+.review .meta{font-size:.72rem;color:var(--muted);margin-top:6px;}
+
+.note{
+  font-size:.8rem;color:var(--muted);line-height:1.55;background:var(--warn-soft);
+  border:1px solid color-mix(in srgb, var(--warn) 30%, transparent);border-radius:10px;
+  padding:12px 14px;margin-top:22px;
+}
+.note b{color:var(--warn);}
+</style>
+
+<div class="wrap">
+  <header class="page">
+    <span class="eyebrow">Etapa 2 · Produto</span>
+    <h1>Telas do Split — referência de alta fidelidade</h1>
+    <p>Mockups navegáveis das telas centrais do MVP (seção 11 do Documento Mestre), usando o sistema visual provisório já aplicado na landing page. Servem como referência para o wireframe virar código — layout, hierarquia e conteúdo real, não a marca definitiva.</p>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" data-screen="login" aria-selected="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+      Entrar
+    </button>
+    <button class="tab" data-screen="marketplace" aria-selected="false">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></svg>
+      Marketplace
+    </button>
+    <button class="tab" data-screen="perfil" aria-selected="false">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.2-4 3.8-6 7-6s5.8 2 7 6"/></svg>
+      Perfil
+    </button>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="screen active" id="screen-login">
+    <div class="browser">
+      <div class="browser-bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">split.app/entrar</div></div>
+      <div class="browser-body">
+        <div class="login-wrap">
+          <div class="login-card">
+            <div class="mark">
+              <svg width="34" height="34" viewBox="0 0 26 26" fill="none">
+                <circle cx="10.5" cy="13" r="8.5" fill="var(--primary)"/>
+                <circle cx="16.5" cy="13" r="8.5" fill="var(--accent)" fill-opacity=".85"/>
+              </svg>
+            </div>
+            <h2 class="display">Bem-vindo de volta</h2>
+            <p class="sub">Entre para acompanhar seus grupos e assinaturas</p>
+
+            <div class="field">
+              <label for="li-email">E-mail</label>
+              <input id="li-email" type="email" placeholder="voce@email.com">
+            </div>
+            <div class="field">
+              <label for="li-senha">Senha</label>
+              <input id="li-senha" type="password" placeholder="••••••••">
+            </div>
+            <div class="field-row">
+              <label style="display:flex;align-items:center;gap:6px;color:var(--muted);"><input type="checkbox"> Lembrar de mim</label>
+              <a href="#">Esqueci a senha</a>
+            </div>
+            <button class="submit-btn">Entrar</button>
+
+            <div class="divider">ou continue com</div>
+
+            <button class="google-btn">
+              <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 01-1.8 2.72v2.26h2.9c1.7-1.56 2.7-3.86 2.7-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.98v2.33A9 9 0 009 18z"/><path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 013.68 9c0-.59.1-1.17.27-1.7V4.97H.98A9 9 0 000 9c0 1.45.35 2.83.98 4.03l2.97-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.9 11.43 0 9 0A9 9 0 00.98 4.97l2.97 2.33C4.66 5.17 6.65 3.58 9 3.58z"/></svg>
+              Continuar com Google
+            </button>
+
+            <p class="login-foot">Não tem conta? <a href="#">Criar conta grátis</a></p>
+            <p class="login-legal">Ao continuar, você concorda com os Termos e a Política de Privacidade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Nota de produto:</b> login social (Google) reduz fricção no cadastro, mas identidade verificada continua sendo uma etapa separada e obrigatória para administrar grupos públicos — entrar com Google não substitui a verificação de CPF/documento.</p>
+  </div>
+
+  <!-- MARKETPLACE -->
+  <div class="screen" id="screen-marketplace">
+    <div class="browser">
+      <div class="browser-bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">split.app/marketplace</div></div>
+      <div class="browser-body">
+        <div class="site-nav">
+          <div class="wordmark">
+            <span class="mark"><svg width="24" height="24" viewBox="0 0 26 26" fill="none"><circle cx="10.5" cy="13" r="8.5" fill="var(--primary)"/><circle cx="16.5" cy="13" r="8.5" fill="var(--accent)" fill-opacity=".85"/></svg></span>
+            Split
+          </div>
+          <div class="nav-links">
+            <a class="on">Marketplace</a><a>Como funciona</a><a>Preços</a><a>Dúvidas</a>
+          </div>
+          <div class="nav-right">
+            <button class="btn ghost">Criar grupo</button>
+            <div class="avatar-chip">MS</div>
+          </div>
+        </div>
+
+        <div class="mkt-body">
+          <div class="mkt-head">
+            <div>
+              <h2>Encontre um grupo com vaga</h2>
+              <p>128 grupos ativos em 6 categorias aprovadas</p>
+            </div>
+          </div>
+          <div class="search-row">
+            <input class="search-input" placeholder="Buscar por serviço, ex: Netflix, Spotify...">
+            <button class="btn primary">Buscar</button>
+          </div>
+          <div class="chip-row">
+            <span class="chip on">Todas categorias</span>
+            <span class="chip">Streaming de vídeo</span>
+            <span class="chip">Streaming de música</span>
+            <span class="chip">Armazenamento</span>
+            <span class="chip">Produtividade</span>
+            <span class="chip">Até R$ 25/mês</span>
+            <span class="chip">Reputação 4+ ★</span>
+          </div>
+
+          <div class="card-grid">
+            <div class="group-card">
+              <div class="gc-top">
+                <div class="gc-service">
+                  <span class="svc-icon" style="background:#E1122F;">N</span>
+                  <div><div class="name">Netflix Família</div><div class="cat">Streaming de vídeo</div></div>
+                </div>
+                <div class="gc-price"><div class="v">R$ 20</div><div class="l">/mês</div></div>
+              </div>
+              <div class="gc-badges">
+                <span class="badge verified">✔ Verificado</span>
+                <span class="badge trust">⭐ Confiança</span>
+              </div>
+              <div class="gc-admin"><span class="mini-avatar"></span> Maria S. · 8 meses de atividade</div>
+              <div class="gc-meta"><span>3 de 4 vagas</span><span class="stars">★★★★☆ 4.6</span></div>
+              <button class="gc-cta">Ver grupo</button>
+            </div>
+
+            <div class="group-card">
+              <div class="gc-top">
+                <div class="gc-service">
+                  <span class="svc-icon" style="background:#1DB954;">S</span>
+                  <div><div class="name">Spotify Duo</div><div class="cat">Streaming de música</div></div>
+                </div>
+                <div class="gc-price"><div class="v">R$ 12</div><div class="l">/mês</div></div>
+              </div>
+              <div class="gc-badges">
+                <span class="badge verified">✔ Verificado</span>
+                <span class="badge pro">★ Pro</span>
+              </div>
+              <div class="gc-admin"><span class="mini-avatar"></span> Rafael T. · 3 meses de atividade</div>
+              <div class="gc-meta"><span>1 de 2 vagas</span><span class="stars">★★★★★ 5.0</span></div>
+              <button class="gc-cta">Ver grupo</button>
+            </div>
+
+            <div class="group-card">
+              <div class="gc-top">
+                <div class="gc-service">
+                  <span class="svc-icon" style="background:#4285F4;">G</span>
+                  <div><div class="name">Google One 2TB</div><div class="cat">Armazenamento</div></div>
+                </div>
+                <div class="gc-price"><div class="v">R$ 8</div><div class="l">/mês</div></div>
+              </div>
+              <div class="gc-badges"><span class="badge verified">✔ Verificado</span></div>
+              <div class="gc-admin"><span class="mini-avatar"></span> Bia F. · 1 mês de atividade</div>
+              <div class="gc-meta"><span>4 de 5 vagas</span><span class="stars">★★★★☆ 4.2</span></div>
+              <button class="gc-cta">Ver grupo</button>
+            </div>
+
+            <div class="group-card">
+              <div class="gc-top">
+                <div class="gc-service">
+                  <span class="svc-icon" style="background:#113CCF;">D</span>
+                  <div><div class="name">Disney+ Padrão</div><div class="cat">Streaming de vídeo</div></div>
+                </div>
+                <div class="gc-price"><div class="v">R$ 15</div><div class="l">/mês</div></div>
+              </div>
+              <div class="gc-badges">
+                <span class="badge verified">✔ Verificado</span>
+                <span class="badge trust">⭐ Confiança</span>
+              </div>
+              <div class="gc-admin"><span class="mini-avatar"></span> Carlos M. · 11 meses de atividade</div>
+              <div class="gc-meta"><span>2 de 4 vagas</span><span class="stars">★★★★★ 4.9</span></div>
+              <button class="gc-cta">Ver grupo</button>
+            </div>
+
+            <div class="group-card">
+              <div class="gc-top">
+                <div class="gc-service">
+                  <span class="svc-icon" style="background:#107C10;">X</span>
+                  <div><div class="name">Xbox Game Pass</div><div class="cat">Jogos</div></div>
+                </div>
+                <div class="gc-price"><div class="v">R$ 18</div><div class="l">/mês</div></div>
+              </div>
+              <div class="gc-badges"><span class="badge verified">✔ Verificado</span></div>
+              <div class="gc-admin"><span class="mini-avatar"></span> Julia P. · 2 meses de atividade</div>
+              <div class="gc-meta"><span>1 de 3 vagas</span><span class="stars">★★★★☆ 4.4</span></div>
+              <button class="gc-cta">Ver grupo</button>
+            </div>
+
+            <div class="group-card">
+              <div class="gc-top">
+                <div class="gc-service">
+                  <span class="svc-icon" style="background:#EA4335;">M</span>
+                  <div><div class="name">Microsoft 365 Família</div><div class="cat">Produtividade</div></div>
+                </div>
+                <div class="gc-price"><div class="v">R$ 10</div><div class="l">/mês</div></div>
+              </div>
+              <div class="gc-badges">
+                <span class="badge verified">✔ Verificado</span>
+                <span class="badge pro">★ Pro</span>
+              </div>
+              <div class="gc-admin"><span class="mini-avatar"></span> Ana L. · 6 meses de atividade</div>
+              <div class="gc-meta"><span>3 de 6 vagas</span><span class="stars">★★★★★ 4.8</span></div>
+              <button class="gc-cta">Ver grupo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Nota de produto:</b> filtros e busca cobrem a regra "preço e taxa apresentados antes do pagamento" (seção 12) ao expor o preço já na listagem. Os selos seguem a leitura da seção 7 — nunca misturar verificação, Pro e confiança visualmente.</p>
+  </div>
+
+  <!-- PERFIL -->
+  <div class="screen" id="screen-perfil">
+    <div class="browser">
+      <div class="browser-bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">split.app/perfil/maria-silva</div></div>
+      <div class="browser-body">
+        <div class="site-nav">
+          <div class="wordmark">
+            <span class="mark"><svg width="24" height="24" viewBox="0 0 26 26" fill="none"><circle cx="10.5" cy="13" r="8.5" fill="var(--primary)"/><circle cx="16.5" cy="13" r="8.5" fill="var(--accent)" fill-opacity=".85"/></svg></span>
+            Split
+          </div>
+          <div class="nav-links"><a>Marketplace</a><a>Meus grupos</a><a class="on">Perfil</a></div>
+          <div class="nav-right"><div class="avatar-chip">MS</div></div>
+        </div>
+
+        <div class="profile-cover"></div>
+        <div class="profile-body">
+          <div class="profile-head">
+            <div class="profile-avatar">MS</div>
+            <div class="profile-info">
+              <h2>Maria Silva</h2>
+              <div class="since">No Split desde março de 2026</div>
+              <div class="profile-badges">
+                <span class="badge verified">✔ Identidade verificada</span>
+                <span class="badge trust">⭐ Administrador de confiança</span>
+              </div>
+            </div>
+            <div class="profile-actions"><button class="btn ghost">Mensagem</button></div>
+          </div>
+
+          <div class="stat-strip">
+            <div class="stat-cell"><div class="v">3</div><div class="l">grupos administrados</div></div>
+            <div class="stat-cell"><div class="v">2</div><div class="l">participando</div></div>
+            <div class="stat-cell"><div class="v">4.8 ★</div><div class="l">avaliação média</div></div>
+            <div class="stat-cell"><div class="v">14</div><div class="l">ciclos concluídos</div></div>
+          </div>
+
+          <div class="profile-tabs">
+            <div class="ptab on" data-ptab="sobre">Sobre</div>
+            <div class="ptab" data-ptab="grupos">Grupos que administra</div>
+            <div class="ptab" data-ptab="avaliacoes">Avaliações</div>
+          </div>
+
+          <div class="profile-panel" id="ptab-sobre">
+            <div class="about-box">
+              <p style="margin:0 0 10px;"><b style="color:var(--ink);">Como a reputação é calculada:</b> tempo de atividade, ciclos concluídos, taxa de cancelamento, disputas procedentes e tempo de resposta — nunca comprada, só conquistada por histórico (seção 7.3 do Documento Mestre).</p>
+              <p style="margin:0;">0 disputas procedentes contra este perfil nos últimos 12 meses.</p>
+            </div>
+          </div>
+
+          <div class="profile-panel" id="ptab-grupos" hidden>
+            <div class="mini-group"><span><b>Netflix Família</b> · Streaming de vídeo</span><span class="badge verified">3/4 vagas · Publicado</span></div>
+            <div class="mini-group"><span><b>Disney+ Padrão</b> · Streaming de vídeo</span><span class="badge verified">2/4 vagas · Publicado</span></div>
+            <div class="mini-group"><span><b>Google One 2TB</b> · Armazenamento</span><span class="badge pro">Em análise</span></div>
+          </div>
+
+          <div class="profile-panel" id="ptab-avaliacoes" hidden>
+            <div class="review">
+              <span class="mini-avatar"></span>
+              <div>
+                <div class="stars">★★★★★</div>
+                <p>Acesso liberado no mesmo dia, sem enrolação. Recomendo. <i>(exemplo)</i></p>
+                <div class="meta">João P. · Netflix Família · há 2 semanas</div>
+              </div>
+            </div>
+            <div class="review">
+              <span class="mini-avatar"></span>
+              <div>
+                <div class="stars">★★★★☆</div>
+                <p>Grupo organizado, só demorou um pouco para responder uma dúvida. <i>(exemplo)</i></p>
+                <div class="meta">Camila R. · Disney+ Padrão · há 1 mês</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note"><b>Nota de produto:</b> avaliações acima são conteúdo de exemplo para referência de layout — nenhum grupo ou usuário real existe ainda. A distinção entre os três selos (verificado / Pro / confiança) precisa se manter visualmente clara também aqui.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var tabs = document.querySelectorAll(".tab");
+  var screens = document.querySelectorAll(".screen");
+  tabs.forEach(function(tab){
+    tab.addEventListener("click", function(){
+      tabs.forEach(function(t){ t.setAttribute("aria-selected","false"); });
+      tab.setAttribute("aria-selected","true");
+      screens.forEach(function(s){ s.classList.remove("active"); });
+      document.getElementById("screen-" + tab.dataset.screen).classList.add("active");
+    });
+  });
+
+  var ptabs = document.querySelectorAll(".ptab");
+  var panels = { sobre: document.getElementById("ptab-sobre"), grupos: document.getElementById("ptab-grupos"), avaliacoes: document.getElementById("ptab-avaliacoes") };
+  ptabs.forEach(function(pt){
+    pt.addEventListener("click", function(){
+      ptabs.forEach(function(p){ p.classList.remove("on"); });
+      pt.classList.add("on");
+      Object.keys(panels).forEach(function(k){ panels[k].hidden = (k !== pt.dataset.ptab); });
+    });
+  });
+})();
+</script>
