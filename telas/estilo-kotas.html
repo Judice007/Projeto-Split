@@ -1,0 +1,388 @@
+<title>Split — estilo Kotas</title>
+<meta name="description" content="Telas de login, início e perfil do Split no padrão visual real do Kotas: azul, preto e branco, app mobile minimalista.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F2F4;
+  --app-bg:#F1F2F4;
+  --surface:#FFFFFF;
+  --surface-2:#F1F2F4;
+  --border:#E4E6E9;
+  --ink:#15181C;
+  --muted:#7B838C;
+  --blue:#1FA9E1;
+  --blue-dark:#0E86BB;
+  --blue-ink:#FFFFFF;
+  --blue-soft:#E4F6FD;
+  --pill:#EEF0F2;
+  --pill-ink:#565D66;
+  --shadow: 0 1px 2px rgba(21,24,28,.04), 0 10px 26px rgba(21,24,28,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1115; --app-bg:#0F1115; --surface:#181B20; --surface-2:#1F2329; --border:#2B2F36;
+    --ink:#F1F3F5; --muted:#9BA2AB; --blue:#3FBBEE; --blue-dark:#1FA9E1; --blue-ink:#0A1216;
+    --blue-soft:#122A34; --pill:#232830; --pill-ink:#C7CCD2;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 30px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1115; --app-bg:#0F1115; --surface:#181B20; --surface-2:#1F2329; --border:#2B2F36;
+  --ink:#F1F3F5; --muted:#9BA2AB; --blue:#3FBBEE; --blue-dark:#1FA9E1; --blue-ink:#0A1216;
+  --blue-soft:#122A34; --pill:#232830; --pill-ink:#C7CCD2;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 30px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Nunito Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  padding-inline:16px;padding-block:24px 48px;
+}
+.display{font-family:"Baloo 2",sans-serif;font-weight:700;text-wrap:balance;}
+a{color:var(--blue);text-decoration:none;font-weight:700;}
+img,svg{max-width:100%;}
+.wrap{max-width:1100px;margin-inline:auto;}
+
+header.page{margin-bottom:20px;}
+.eyebrow{font-size:.74rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--blue-dark);}
+h1{font-size:1.5rem;margin:6px 0 6px;font-weight:700;font-family:"Baloo 2";color:var(--ink);}
+header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;margin:0;}
+.compare-note{
+  display:inline-flex;align-items:center;gap:8px;margin-top:12px;font-size:.8rem;font-weight:700;
+  background:var(--blue-soft);color:var(--blue-dark);padding:8px 14px;border-radius:100px;
+}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:14px;margin:20px 0 28px;}
+.tab{
+  appearance:none;border:1px solid var(--border);background:var(--surface);color:var(--muted);
+  font:inherit;font-size:.85rem;font-weight:700;padding:9px 18px;border-radius:100px;cursor:pointer;
+}
+.tab[aria-selected="true"]{background:var(--blue);color:var(--blue-ink);border-color:var(--blue);}
+.tab:hover{border-color:var(--blue);}
+
+.screen{display:none;}
+.screen.active{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;}
+
+.phone-col{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.phone{
+  width:340px;max-width:100%;aspect-ratio:9/19.5;
+  background:var(--surface);border-radius:36px;border:1px solid var(--border);
+  box-shadow:var(--shadow);padding:0;overflow:hidden;position:relative;
+}
+.statusbar{
+  display:flex;justify-content:space-between;align-items:center;padding:10px 20px 4px;
+  font-size:.72rem;font-weight:700;color:var(--ink);background:var(--surface);
+}
+.statusbar .icons{display:flex;gap:5px;align-items:center;color:var(--muted);}
+.app-screen{height:calc(100% - 26px);overflow-y:auto;background:var(--app-bg);display:flex;flex-direction:column;}
+.app-screen::-webkit-scrollbar{display:none;}
+
+.notes-col{flex:1;min-width:260px;max-width:360px;}
+.note{
+  font-size:.82rem;color:var(--blue-dark);line-height:1.55;background:var(--blue-soft);
+  border:1px solid color-mix(in srgb, var(--blue) 30%, transparent);border-radius:14px;
+  padding:14px 16px;font-weight:600;
+}
+.note b{font-weight:800;}
+.note + .note{margin-top:10px;}
+
+/* ===== LOGIN ===== */
+.login-head{background:var(--surface-2);padding:36px 20px 26px;display:flex;justify-content:center;align-items:center;}
+.k-logo{display:flex;align-items:center;gap:8px;}
+.k-logo svg{display:block;}
+.k-logo span{font-family:"Baloo 2";font-weight:800;font-size:1.5rem;color:var(--ink);}
+.login-body{background:var(--surface);flex:1;padding:26px 22px;display:flex;flex-direction:column;}
+.login-body h2{font-size:1.35rem;margin:0 0 8px;font-weight:800;}
+.login-body .sub{font-size:.86rem;color:var(--ink);margin:0 0 22px;}
+.social-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  border:1.5px solid var(--border);background:var(--surface);border-radius:100px;
+  padding:12px;font-weight:700;font-size:.88rem;color:var(--pill-ink);cursor:pointer;margin-bottom:12px;
+}
+.divider{display:flex;align-items:center;gap:12px;margin:18px 0;color:var(--muted);font-size:.76rem;font-weight:700;}
+.divider::before, .divider::after{content:"";flex:1;height:1px;background:var(--border);}
+.uline-field{margin-bottom:20px;}
+.uline-field input{
+  width:100%;border:none;border-bottom:1.5px solid var(--border);background:transparent;
+  padding:8px 2px;font:inherit;font-size:.92rem;color:var(--ink);
+}
+.uline-field input::placeholder{color:var(--muted);}
+.uline-field input:focus{outline:none;border-color:var(--blue);}
+.pass-row{position:relative;display:flex;align-items:center;}
+.pass-row svg{position:absolute;right:2px;color:var(--muted);}
+.enter-btn{
+  width:100%;background:var(--blue);color:var(--blue-ink);border:none;border-radius:100px;
+  padding:14px;font-weight:800;font-size:.95rem;cursor:pointer;margin-top:8px;
+}
+.login-links{text-align:center;font-size:.82rem;margin-top:20px;color:var(--ink);font-weight:600;}
+.login-legal{text-align:center;font-size:.7rem;color:var(--muted);margin-top:auto;padding-top:20px;line-height:1.5;font-weight:600;}
+
+/* ===== HOME / MARKETPLACE ===== */
+.app-topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--surface);}
+.app-topbar .k-logo span{font-size:1.1rem;}
+.app-topbar .bell{color:var(--muted);}
+.promo{
+  margin:12px 16px 4px;border-radius:16px;overflow:hidden;padding:16px;color:#fff;
+  background:linear-gradient(120deg, var(--blue-dark), var(--blue));
+  display:flex;flex-direction:column;gap:6px;
+}
+.promo .t{font-family:"Baloo 2";font-weight:700;font-size:1rem;line-height:1.25;}
+.promo .s{font-size:.72rem;opacity:.9;font-weight:600;}
+.sec{padding:18px 16px 4px;}
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.sec-head h3{margin:0;font-size:.98rem;font-weight:800;}
+.sec-head a{font-size:.8rem;}
+.h-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;}
+.h-scroll::-webkit-scrollbar{display:none;}
+.mini-card{
+  flex:none;width:150px;background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:14px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;
+}
+.mini-card .svc-avatar{
+  width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-size:1.1rem;
+}
+.mini-card .name{font-weight:800;font-size:.86rem;margin-top:2px;}
+.mini-card .sub{font-size:.72rem;color:var(--muted);font-weight:600;}
+.mini-card .price{font-family:"Baloo 2";font-weight:700;font-size:1rem;margin-top:2px;}
+.status-pill{background:var(--pill);color:var(--pill-ink);font-size:.66rem;font-weight:700;padding:4px 10px;border-radius:100px;margin-top:4px;}
+.bottom-nav{
+  margin-top:auto;display:flex;justify-content:space-around;padding:10px 6px 14px;
+  background:var(--surface);border-top:1px solid var(--border);
+}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.62rem;font-weight:700;color:var(--muted);}
+.nav-item.on{color:var(--blue);}
+
+/* ===== PERFIL ===== */
+.profile-top{background:var(--surface);padding:22px 20px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;}
+.profile-avatar{
+  width:76px;height:76px;border-radius:50%;background:var(--blue-soft);color:var(--blue-dark);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.5rem;font-family:"Baloo 2";
+}
+.profile-top h2{margin:4px 0 0;font-size:1.1rem;font-weight:800;}
+.profile-top .since{font-size:.74rem;color:var(--muted);font-weight:600;}
+.badge-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:6px;}
+.badge{font-size:.64rem;font-weight:800;padding:4px 9px;border-radius:100px;background:var(--pill);color:var(--pill-ink);}
+.badge.blue{background:var(--blue-soft);color:var(--blue-dark);}
+.stat-row{display:flex;justify-content:space-around;padding:16px 12px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.stat{text-align:center;}
+.stat .v{font-family:"Baloo 2";font-weight:700;font-size:1.05rem;}
+.stat .l{font-size:.62rem;color:var(--muted);font-weight:700;margin-top:2px;}
+.list-sec{padding:16px;}
+.list-sec h3{font-size:.9rem;font-weight:800;margin:0 0 10px;}
+.group-row{
+  display:flex;justify-content:space-between;align-items:center;background:var(--surface);
+  border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-bottom:8px;font-size:.82rem;font-weight:700;
+}
+.group-row .r{color:var(--muted);font-weight:600;font-size:.76rem;}
+</style>
+
+<div class="wrap">
+  <header class="page">
+    <span class="eyebrow">Exploração visual · comparativo</span>
+    <h1>Split, no padrão real do Kotas</h1>
+    <p>Refeito a partir dos seus prints: azul + preto + branco, cantos bem arredondados, inputs com linha embaixo (sem caixa), botões sociais em pílula e navegação inferior de app — o padrão visual real do maior concorrente direto, não uma suposição de marca.</p>
+    <span class="compare-note">Referência para comparação — a marca definitiva do Split só vem depois da validação (Etapa 6)</span>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" data-screen="login" aria-selected="true">Login</button>
+    <button class="tab" data-screen="home" aria-selected="false">Início</button>
+    <button class="tab" data-screen="perfil" aria-selected="false">Perfil</button>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="screen active" id="screen-login">
+    <div class="phone-col">
+      <div class="phone">
+        <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
+        <div class="app-screen">
+          <div class="login-head">
+            <div class="k-logo">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 8l14 14M22 8L8 22"/>
+              </svg>
+              <span>split</span>
+            </div>
+          </div>
+          <div class="login-body">
+            <h2>Faça seu login</h2>
+            <p class="sub">Novo por aqui? <a href="#">Crie sua conta</a></p>
+
+            <button class="social-btn">
+              <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.64-.06-1.25-.16-1.84H9v3.48h4.84a4.14 4.14 0 01-1.8 2.72v2.26h2.9c1.7-1.56 2.7-3.86 2.7-6.62z"/><path fill="#34A853" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.9-2.26c-.8.54-1.84.86-3.06.86-2.35 0-4.34-1.59-5.05-3.72H.98v2.33A9 9 0 009 18z"/><path fill="#FBBC05" d="M3.95 10.7A5.4 5.4 0 013.68 9c0-.59.1-1.17.27-1.7V4.97H.98A9 9 0 000 9c0 1.45.35 2.83.98 4.03l2.97-2.33z"/><path fill="#EA4335" d="M9 3.58c1.32 0 2.5.45 3.44 1.35l2.58-2.58C13.46.9 11.43 0 9 0A9 9 0 00.98 4.97l2.97 2.33C4.66 5.17 6.65 3.58 9 3.58z"/></svg>
+              Continuar com Google
+            </button>
+
+            <div class="divider">OU</div>
+
+            <div class="uline-field">
+              <input type="email" placeholder="Digite seu e-mail">
+            </div>
+            <div class="uline-field pass-row">
+              <input type="password" placeholder="Senha" style="width:100%;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+
+            <button class="enter-btn">Entrar</button>
+
+            <p class="login-links"><a href="#">Esqueceu sua senha?</a> ou <a href="#">Ativar uma conta</a></p>
+            <p class="login-legal">Ao entrar, você concorda com os Termos de uso e Política de Privacidade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-col">
+      <p class="note"><b>Padrão observado:</b> login social vem primeiro (Google/Facebook), e-mail/senha depois — reduz fricção, mas identidade verificada continua sendo etapa separada e obrigatória para administrar grupo público.</p>
+      <p class="note"><b>Detalhe visual:</b> inputs com linha embaixo em vez de caixa fechada, botões sociais em pílula com borda fina — mais leve que formulário tradicional.</p>
+    </div>
+  </div>
+
+  <!-- HOME / MARKETPLACE -->
+  <div class="screen" id="screen-home">
+    <div class="phone-col">
+      <div class="phone">
+        <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
+        <div class="app-screen">
+          <div class="app-topbar">
+            <div class="k-logo">
+              <svg width="22" height="22" viewBox="0 0 30 30" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"><path d="M8 8l14 14M22 8L8 22"/></svg>
+              <span>split</span>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="bell"><path d="M6 8a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M9.5 18a2.5 2.5 0 005 0"/></svg>
+          </div>
+
+          <div class="promo">
+            <div class="t">2 mensalidades cobrem sua entrada — e sua proteção</div>
+            <div class="s">Saiba como funciona o pagamento protegido</div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-head"><h3>Meus grupos</h3><a href="#">Ver tudo</a></div>
+            <div class="h-scroll">
+              <div class="mini-card">
+                <div class="svc-avatar" style="background:#E1122F;">N</div>
+                <div class="name">Netflix Família</div>
+                <div class="sub">2 de 4 vagas</div>
+                <div class="price">R$ 20</div>
+                <div class="status-pill">Assinado, com vagas</div>
+              </div>
+              <div class="mini-card">
+                <div class="svc-avatar" style="background:#1DB954;">S</div>
+                <div class="name">Spotify Duo</div>
+                <div class="sub">1 de 2 vagas</div>
+                <div class="price">R$ 12</div>
+                <div class="status-pill">Assinado, com vagas</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sec">
+            <div class="sec-head"><h3>Selecionados para você</h3><a href="#">Ver tudo</a></div>
+            <div class="h-scroll">
+              <div class="mini-card">
+                <div class="svc-avatar" style="background:#4285F4;">G</div>
+                <div class="name">Google One 2TB</div>
+                <div class="sub">4 de 5 vagas</div>
+                <div class="price">R$ 8</div>
+                <div class="status-pill">Publicado</div>
+              </div>
+              <div class="mini-card">
+                <div class="svc-avatar" style="background:#113CCF;">D</div>
+                <div class="name">Disney+ Padrão</div>
+                <div class="sub">2 de 4 vagas</div>
+                <div class="price">R$ 15</div>
+                <div class="status-pill">Publicado</div>
+              </div>
+              <div class="mini-card">
+                <div class="svc-avatar" style="background:#107C10;">X</div>
+                <div class="name">Xbox Game Pass</div>
+                <div class="sub">1 de 3 vagas</div>
+                <div class="price">R$ 18</div>
+                <div class="status-pill">Publicado</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bottom-nav">
+            <div class="nav-item on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1z"/></svg>Início</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></svg>Buscar</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 19c.5-3 2.5-5 5-5s4.5 2 5 5M11 19c.5-3 2.5-5 5-5s4.5 2 5 5"/></svg>Grupos</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6z"/></svg>Avisos</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>Mais</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-col">
+      <p class="note"><b>Padrão observado:</b> home é "meus grupos" primeiro, marketplace de descoberta vem depois — o app abre mostrando o que já é seu, não a vitrine pública.</p>
+      <p class="note"><b>Nota de produto:</b> o card já mostra preço e vagas antes de qualquer clique — mantém a regra de preço visível antes do pagamento (seção 12), só que dentro de um card bem mais compacto que a versão anterior.</p>
+    </div>
+  </div>
+
+  <!-- PERFIL -->
+  <div class="screen" id="screen-perfil">
+    <div class="phone-col">
+      <div class="phone">
+        <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
+        <div class="app-screen">
+          <div class="app-topbar"><div class="k-logo"><span style="font-size:1rem;">Perfil</span></div></div>
+
+          <div class="profile-top">
+            <div class="profile-avatar">MS</div>
+            <h2>Maria Silva</h2>
+            <div class="since">No Split desde março de 2026</div>
+            <div class="badge-row">
+              <span class="badge blue">✔ Verificada</span>
+              <span class="badge">⭐ Confiança</span>
+            </div>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat"><div class="v">3</div><div class="l">ADMINISTRA</div></div>
+            <div class="stat"><div class="v">2</div><div class="l">PARTICIPA</div></div>
+            <div class="stat"><div class="v">4.8★</div><div class="l">AVALIAÇÃO</div></div>
+            <div class="stat"><div class="v">14</div><div class="l">CICLOS</div></div>
+          </div>
+
+          <div class="list-sec">
+            <h3>Grupos que administra</h3>
+            <div class="group-row"><span>Netflix Família</span><span class="r">3/4 vagas</span></div>
+            <div class="group-row"><span>Disney+ Padrão</span><span class="r">2/4 vagas</span></div>
+            <div class="group-row"><span>Google One 2TB</span><span class="r">Em análise</span></div>
+          </div>
+
+          <div class="bottom-nav">
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1z"/></svg>Início</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></svg>Buscar</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 19c.5-3 2.5-5 5-5s4.5 2 5 5M11 19c.5-3 2.5-5 5-5s4.5 2 5 5"/></svg>Grupos</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6z"/></svg>Avisos</div>
+            <div class="nav-item on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>Mais</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-col">
+      <p class="note"><b>Nota de produto:</b> selos continuam separados (verificação ≠ confiança), só que reduzidos a pílulas discretas — o app inteiro usa muito menos cor que a linha "financeira" anterior.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var tabs = document.querySelectorAll(".tab");
+  var screens = document.querySelectorAll(".screen");
+  tabs.forEach(function(tab){
+    tab.addEventListener("click", function(){
+      tabs.forEach(function(t){ t.setAttribute("aria-selected","false"); });
+      tab.setAttribute("aria-selected","true");
+      screens.forEach(function(s){ s.classList.remove("active"); });
+      document.getElementById("screen-" + tab.dataset.screen).classList.add("active");
+    });
+  });
+})();
+</script>
