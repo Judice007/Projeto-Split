@@ -7,8 +7,8 @@ Extraído da seção 22 do [Documento Mestre](documento-mestre.md). Esta é a et
 - [ ] Consultar especialista jurídico em marketplace, pagamentos, consumidor, contratos e LGPD.
 - [ ] Conversar com provedores de pagamento sobre recebedores, split, agenda de repasses e reservas.
 - [ ] Entrevistar potenciais usuários e administradores.
-- [ ] Definir a landing page e o formulário de interesse.
-- [x] Criar wireframes das jornadas críticas. → rascunho de baixa fidelidade em [wireframes.md](wireframes.md), cobrindo as 4 jornadas da seção 5.
+- [x] Definir a landing page e o formulário de interesse. → página em [`../landing/index.html`](../landing/index.html); formulário funciona via `mailto:` (sem backend) — trocar por Google Forms/Tally/Formspree antes de divulgação ampla.
+- [x] Criar wireframes das jornadas críticas. → rascunho de baixa fidelidade em [wireframes.md](wireframes.md), cobrindo as 4 jornadas da seção 5; também existe versão navegável em [`../prototipo/index.html`](../prototipo/index.html).
 - [ ] Simular a economia unitária antes de definir preços.
 - [ ] Planejar um piloto fechado.
 - [ ] Desenvolver a marca definitiva depois dessas validações.
