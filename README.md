@@ -24,6 +24,12 @@ Um protótipo clicável de baixa/média fidelidade das 4 jornadas críticas (ent
 
 Versão hospedada para visualização rápida: https://claude.ai/artifact/LC1q3JBd4qveHEcwf3DYDf
 
+## Telas de alta fidelidade
+
+Mockups mais próximos do produto final — login (com opção de entrar com Google), marketplace de grupos e perfil de usuário — em [`telas/index.html`](telas/index.html). Usa o mesmo sistema visual provisório da landing page, para servir de referência direta quando o código do MVP começar a ser escrito.
+
+Versão hospedada para visualização rápida: https://claude.ai/artifact/9DnXTHZWRtg6kQCMCv4jqt
+
 ## Simulador de economia unitária
 
 Calculadora interativa em [`ferramentas/economia-unitaria.html`](ferramentas/economia-unitaria.html) para testar quanto a taxa da plataforma precisa cobrir (gateway de pagamento, chargeback, disputas, impostos) antes de sobrar margem, e a sensibilidade dessa margem ao preço da cota. Os valores padrão são estimativas de referência, não números confirmados com um parceiro de pagamentos.
@@ -42,7 +48,9 @@ docs/
   fluxo-financeiro.md        Rascunho do fluxo financeiro completo (entrada, repasse, disputa, estorno)
   wireframes.md              Wireframes de baixa fidelidade das jornadas críticas
 prototipo/
-  index.html                 Protótipo navegável (HTML/CSS/JS puro, sem build)
+  index.html                 Protótipo navegável de baixa/média fidelidade (HTML/CSS/JS puro, sem build)
+telas/
+  index.html                 Mockups de alta fidelidade: login, marketplace, perfil (HTML/CSS/JS puro, sem build)
 landing/
   index.html                 Landing page de captação de interessados (HTML/CSS/JS puro, sem build)
 ferramentas/
