@@ -10,6 +10,14 @@ Este repositório ainda não contém código de produto. Antes de desenvolver, o
 
 > "O principal risco seria começar pelo código antes de validar as regras."
 
+## Landing page de captação de interessados
+
+Página de captação (lista de espera) em [`landing/index.html`](landing/index.html) — abra o arquivo em qualquer navegador. Sem cobrança, seção explícita de "o que já decidimos vs. o que ainda estamos validando", e formulário que envia o interesse por e-mail (sem backend).
+
+Versão hospedada para visualização rápida: https://claude.ai/artifact/82ogQCBhc6GCrjZJ5HXALv
+
+> Antes de divulgar de verdade: o link hospedado é privado por padrão (precisa liberar compartilhamento no menu da página). O formulário usa `mailto:` como captação mínima — considere trocar por um formulário de verdade (Google Forms, Tally, Formspree) antes de uma divulgação ampla, para não depender do cliente de e-mail de cada visitante.
+
 ## Protótipo navegável
 
 Um protótipo clicável de baixa/média fidelidade das 4 jornadas críticas (entrada de participante, criação de grupo, gestão financeira, disputa/encerramento) está disponível em [`prototipo/index.html`](prototipo/index.html) — abra o arquivo em qualquer navegador. Sem identidade visual definitiva de propósito.
@@ -29,6 +37,8 @@ docs/
   wireframes.md              Wireframes de baixa fidelidade das jornadas críticas
 prototipo/
   index.html                 Protótipo navegável (HTML/CSS/JS puro, sem build)
+landing/
+  index.html                 Landing page de captação de interessados (HTML/CSS/JS puro, sem build)
 ```
 
 ## Como contribuir com este momento do projeto
