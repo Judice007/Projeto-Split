@@ -9,7 +9,7 @@ Extraído da seção 22 do [Documento Mestre](documento-mestre.md). Esta é a et
 - [ ] Entrevistar potenciais usuários e administradores.
 - [x] Definir a landing page e o formulário de interesse. → página em [`../landing/index.html`](../landing/index.html); formulário funciona via `mailto:` (sem backend) — trocar por Google Forms/Tally/Formspree antes de divulgação ampla.
 - [x] Criar wireframes das jornadas críticas. → rascunho de baixa fidelidade em [wireframes.md](wireframes.md), cobrindo as 4 jornadas da seção 5; também existe versão navegável em [`../prototipo/index.html`](../prototipo/index.html).
-- [ ] Simular a economia unitária antes de definir preços.
+- [x] Simular a economia unitária antes de definir preços. → calculadora interativa em [`../ferramentas/economia-unitaria.html`](../ferramentas/economia-unitaria.html); premissas de custo (chargeback, gateway, disputa) ainda são estimativas, precisam ser confirmadas com o parceiro de pagamentos.
 - [ ] Planejar um piloto fechado.
 - [ ] Desenvolver a marca definitiva depois dessas validações.
 
