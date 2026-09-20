@@ -30,6 +30,12 @@ Mockups mais próximos do produto final — login (com opção de entrar com Goo
 
 Versão hospedada para visualização rápida: https://claude.ai/artifact/9DnXTHZWRtg6kQCMCv4jqt
 
+### Variante de estilo: padrão Kotas
+
+[`telas/estilo-kotas.html`](telas/estilo-kotas.html) refaz as mesmas telas (login, início, perfil) no padrão visual real do maior concorrente direto (Kotas): azul/preto/branco, cantos bem arredondados, inputs com linha embaixo, navegação inferior de app. Serve para comparar linhas visuais lado a lado — nenhuma das duas é a marca definitiva.
+
+Versão hospedada para visualização rápida: https://claude.ai/artifact/S8LBsgEkqY9FmyiuvdCWPb
+
 ## Simulador de economia unitária
 
 Calculadora interativa em [`ferramentas/economia-unitaria.html`](ferramentas/economia-unitaria.html) para testar quanto a taxa da plataforma precisa cobrir (gateway de pagamento, chargeback, disputas, impostos) antes de sobrar margem, e a sensibilidade dessa margem ao preço da cota. Os valores padrão são estimativas de referência, não números confirmados com um parceiro de pagamentos.
@@ -51,6 +57,7 @@ prototipo/
   index.html                 Protótipo navegável de baixa/média fidelidade (HTML/CSS/JS puro, sem build)
 telas/
   index.html                 Mockups de alta fidelidade: login, marketplace, perfil (HTML/CSS/JS puro, sem build)
+  estilo-kotas.html          Mesmas telas, variante de estilo visual inspirada no Kotas
 landing/
   index.html                 Landing page de captação de interessados (HTML/CSS/JS puro, sem build)
 ferramentas/
