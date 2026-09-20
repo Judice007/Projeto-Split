@@ -178,6 +178,80 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
   border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-bottom:8px;font-size:.82rem;font-weight:700;
 }
 .group-row .r{color:var(--muted);font-weight:600;font-size:.76rem;}
+
+/* ===== GRUPO (detalhe) ===== */
+.grp-cover{
+  height:110px;display:flex;align-items:flex-end;padding:16px;color:#fff;
+  background:linear-gradient(120deg, var(--blue-dark), var(--blue));
+}
+.grp-cover .svc{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.4rem;color:#fff;border:3px solid rgba(255,255,255,.5);}
+.grp-title{padding:14px 16px 6px;}
+.grp-title h2{margin:0;font-size:1.15rem;font-weight:800;}
+.grp-title .cat{font-size:.78rem;color:var(--muted);font-weight:600;}
+.grp-price-row{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;}
+.grp-price-row .v{font-family:"Baloo 2";font-weight:700;font-size:1.4rem;color:var(--blue-dark);}
+.grp-price-row .l{font-size:.72rem;color:var(--muted);font-weight:600;}
+.vaga-bar-wrap{padding:0 16px 14px;}
+.vaga-bar{height:8px;border-radius:100px;background:var(--pill);overflow:hidden;margin-top:6px;}
+.vaga-bar i{display:block;height:100%;background:var(--blue);border-radius:100px;}
+.admin-card{
+  margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;
+  padding:12px 14px;display:flex;align-items:center;gap:10px;
+}
+.admin-card .av{width:38px;height:38px;border-radius:50%;background:var(--blue-soft);color:var(--blue-dark);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;}
+.admin-card .info{flex:1;}
+.admin-card .name{font-weight:800;font-size:.86rem;}
+.admin-card .meta{font-size:.72rem;color:var(--muted);font-weight:600;}
+.rules-box{margin:0 16px 14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;}
+.rules-box h4{margin:0 0 8px;font-size:.82rem;font-weight:800;}
+.rules-box ul{margin:0;padding-left:18px;font-size:.8rem;color:var(--muted);font-weight:600;display:flex;flex-direction:column;gap:6px;}
+.sticky-cta{margin-top:auto;padding:14px 16px;background:var(--surface);border-top:1px solid var(--border);}
+
+/* ===== CHECKOUT ===== */
+.checkout-box{margin:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;}
+.co-row{display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;padding:7px 0;}
+.co-row.total{border-top:1px solid var(--border);margin-top:6px;padding-top:12px;font-weight:800;font-size:.95rem;}
+.co-hint{font-size:.72rem;color:var(--blue-dark);font-weight:700;margin-top:8px;}
+.check-row{display:flex;gap:10px;align-items:flex-start;padding:10px 16px;font-size:.8rem;color:var(--ink);font-weight:600;}
+.check-row input{margin-top:2px;}
+.pay-select{margin:6px 16px 0;padding:12px 14px;border:1.5px solid var(--border);border-radius:12px;display:flex;justify-content:space-between;align-items:center;font-size:.85rem;font-weight:700;}
+
+/* ===== CRIAR GRUPO ===== */
+.form-sec{padding:14px 16px;}
+.form-field{margin-bottom:16px;}
+.form-field label{display:block;font-size:.76rem;font-weight:800;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em;}
+.form-field input, .form-field select, .form-field textarea{
+  width:100%;border:1.5px solid var(--border);border-radius:12px;padding:11px 13px;
+  font:inherit;font-size:.88rem;color:var(--ink);background:var(--surface);
+}
+.form-field textarea{resize:none;min-height:64px;}
+.seg-toggle{display:flex;background:var(--pill);border-radius:100px;padding:3px;}
+.seg-toggle .opt{flex:1;text-align:center;padding:9px;border-radius:100px;font-size:.82rem;font-weight:800;color:var(--muted);}
+.seg-toggle .opt.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08);}
+
+/* ===== GESTOR (dashboard) ===== */
+.gestor-hero{padding:18px 16px;background:linear-gradient(120deg, var(--blue-dark), var(--blue));color:#fff;}
+.gestor-hero .l{font-size:.72rem;font-weight:700;opacity:.85;}
+.gestor-hero .v{font-family:"Baloo 2";font-weight:700;font-size:1.7rem;margin-top:2px;}
+.gestor-hero .row{display:flex;gap:18px;margin-top:10px;}
+.gestor-hero .mini{font-size:.72rem;font-weight:700;opacity:.9;}
+.gestor-hero .mini b{display:block;font-size:.92rem;font-family:"Baloo 2";}
+.sub-list{padding:6px 16px;}
+.sub-row{
+  display:flex;justify-content:space-between;align-items:center;background:var(--surface);
+  border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-bottom:8px;
+}
+.sub-row .left{display:flex;align-items:center;gap:10px;}
+.sub-row .dot{width:8px;height:8px;border-radius:50%;flex:none;}
+.sub-row .dot.personal{background:#9AA3AD;}
+.sub-row .dot.shared{background:var(--blue);}
+.sub-row .name{font-weight:800;font-size:.84rem;}
+.sub-row .sub{font-size:.7rem;color:var(--muted);font-weight:600;}
+.sub-row .price{font-family:"Baloo 2";font-weight:700;font-size:.9rem;}
+.alert-box{
+  margin:10px 16px;background:#FFF3E0;border:1px solid #F5D89B;color:#8A5A12;
+  border-radius:12px;padding:10px 12px;font-size:.76rem;font-weight:700;
+}
 </style>
 
 <div class="wrap">
@@ -192,6 +266,10 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
     <button class="tab" data-screen="login" aria-selected="true">Login</button>
     <button class="tab" data-screen="home" aria-selected="false">Início</button>
     <button class="tab" data-screen="perfil" aria-selected="false">Perfil</button>
+    <button class="tab" data-screen="grupo" aria-selected="false">Página do grupo</button>
+    <button class="tab" data-screen="checkout" aria-selected="false">Checkout</button>
+    <button class="tab" data-screen="criar" aria-selected="false">Criar grupo</button>
+    <button class="tab" data-screen="gestor" aria-selected="false">Gestor</button>
   </div>
 
   <!-- LOGIN -->
@@ -367,6 +445,192 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
     </div>
     <div class="notes-col">
       <p class="note"><b>Nota de produto:</b> selos continuam separados (verificação ≠ confiança), só que reduzidos a pílulas discretas — o app inteiro usa muito menos cor que a linha "financeira" anterior.</p>
+    </div>
+  </div>
+
+  <!-- PÁGINA DO GRUPO -->
+  <div class="screen" id="screen-grupo">
+    <div class="phone-col">
+      <div class="phone">
+        <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
+        <div class="app-screen">
+          <div class="grp-cover">
+            <div class="svc" style="background:#E1122F;">N</div>
+          </div>
+          <div class="grp-title">
+            <h2>Netflix Família</h2>
+            <div class="cat">Streaming de vídeo · Grupo #1234</div>
+          </div>
+          <div class="grp-price-row">
+            <div><div class="v">R$ 20</div><div class="l">por vaga / mês</div></div>
+            <div class="badge-row"><span class="badge blue">✔ Verificado</span><span class="badge">⭐ Confiança</span></div>
+          </div>
+          <div class="vaga-bar-wrap">
+            <div style="display:flex;justify-content:space-between;font-size:.76rem;font-weight:700;color:var(--muted);">
+              <span>3 de 4 vagas ocupadas</span><span>75%</span>
+            </div>
+            <div class="vaga-bar"><i style="width:75%;"></i></div>
+          </div>
+          <div class="admin-card">
+            <div class="av">MS</div>
+            <div class="info"><div class="name">Maria Silva</div><div class="meta">Administradora · 8 meses de atividade</div></div>
+          </div>
+          <div class="rules-box">
+            <h4>Regras deste grupo</h4>
+            <ul>
+              <li>Uso pessoal, sem revenda das credenciais</li>
+              <li>Aviso de 7 dias antes de sair do grupo</li>
+              <li>Perfil individual, sem compartilhar com quem está fora</li>
+            </ul>
+          </div>
+          <div class="sticky-cta">
+            <button class="enter-btn">Solicitar entrada</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-col">
+      <p class="note"><b>Padrão observado:</b> capa colorida + ícone do serviço no topo, depois preço, vagas (com barra de progresso) e admin, antes de qualquer regra — hierarquia por "o que decide se eu entro".</p>
+      <p class="note"><b>Nota de produto:</b> regras completas visíveis antes do botão de ação, sem precisar abrir outra tela — cumpre a exigência de condições claras antes do pagamento.</p>
+    </div>
+  </div>
+
+  <!-- CHECKOUT -->
+  <div class="screen" id="screen-checkout">
+    <div class="phone-col">
+      <div class="phone">
+        <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
+        <div class="app-screen">
+          <div class="app-topbar"><div class="k-logo"><span style="font-size:1rem;">Entrar no grupo</span></div></div>
+
+          <div class="checkout-box">
+            <div class="co-row"><span>2 mensalidades</span><span>R$ 40,00</span></div>
+            <div class="co-row"><span>Taxa da plataforma</span><span>R$ X,XX</span></div>
+            <div class="co-row total"><span>Total</span><span>R$ XX,XX</span></div>
+            <div class="co-hint">Por que 2 mensalidades? Saiba mais</div>
+          </div>
+
+          <div class="check-row"><input type="checkbox"><span>Li e aceito as regras deste grupo</span></div>
+          <div class="check-row"><input type="checkbox"><span>Li e aceito os Termos e a Política de Privacidade</span></div>
+
+          <div class="pay-select">
+            <span>Cartão de crédito •••• 4821</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
+
+          <div class="sticky-cta">
+            <button class="enter-btn">Pagar e entrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-col">
+      <p class="note"><b>Nota de produto:</b> preço e taxa aparecem discriminados antes da confirmação (seção 12) — igual às outras linhas visuais, isso não muda com o estilo.</p>
+      <p class="note"><b>Decisão pendente:</b> valor exato da taxa ainda não está fechado (ver <code>decisoes-pendentes.md</code>) — por isso o placeholder "R$ X,XX".</p>
+    </div>
+  </div>
+
+  <!-- CRIAR GRUPO -->
+  <div class="screen" id="screen-criar">
+    <div class="phone-col">
+      <div class="phone">
+        <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
+        <div class="app-screen">
+          <div class="app-topbar"><div class="k-logo"><span style="font-size:1rem;">Criar grupo</span></div></div>
+
+          <div class="form-sec">
+            <div class="form-field">
+              <label>Serviço</label>
+              <input value="Netflix" readonly>
+            </div>
+            <div class="form-field">
+              <label>Tipo de grupo</label>
+              <div class="seg-toggle">
+                <div class="opt on">Público</div>
+                <div class="opt">Privado</div>
+              </div>
+            </div>
+            <div class="form-field">
+              <label>Plano</label>
+              <select><option>Família · 4 telas</option></select>
+            </div>
+            <div class="form-field">
+              <label>Preço por vaga</label>
+              <input placeholder="R$ 20,00">
+            </div>
+            <div class="form-field">
+              <label>Vagas totais</label>
+              <input placeholder="4">
+            </div>
+            <div class="form-field">
+              <label>Regras do grupo</label>
+              <textarea placeholder="Uso pessoal, sem revenda das credenciais..."></textarea>
+            </div>
+          </div>
+
+          <div class="sticky-cta">
+            <button class="enter-btn">Enviar para análise</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-col">
+      <p class="note"><b>Padrão observado:</b> toggle público/privado em pílula segmentada em vez de radio buttons — mais rápido de bater o olho e escolher.</p>
+      <p class="note"><b>Nota de produto:</b> "Enviar para análise" (não "Publicar") — reforça que nenhum grupo público entra no marketplace sem aprovação (regra de lançamento, seção 4.3).</p>
+    </div>
+  </div>
+
+  <!-- GESTOR -->
+  <div class="screen" id="screen-gestor">
+    <div class="phone-col">
+      <div class="phone">
+        <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
+        <div class="app-screen">
+          <div class="app-topbar"><div class="k-logo"><span style="font-size:1rem;">Gestor de assinaturas</span></div></div>
+
+          <div class="gestor-hero">
+            <div class="l">GASTO MENSAL TOTAL</div>
+            <div class="v">R$ 187,40</div>
+            <div class="row">
+              <div class="mini">PROJEÇÃO ANUAL<b>R$ 2.248,80</b></div>
+              <div class="mini">ECONOMIA ACUMULADA<b>R$ 340,00</b></div>
+            </div>
+          </div>
+
+          <div class="alert-box">⚠ Possível sobreposição: 2 serviços de streaming de música ativos</div>
+
+          <div class="sub-list">
+            <div class="sub-row">
+              <div class="left"><span class="dot shared"></span><div><div class="name">Netflix Família</div><div class="sub">Compartilhada · vence dia 12</div></div></div>
+              <div class="price">R$ 20,00</div>
+            </div>
+            <div class="sub-row">
+              <div class="left"><span class="dot personal"></span><div><div class="name">iCloud+ 200GB</div><div class="sub">Pessoal · vence dia 05</div></div></div>
+              <div class="price">R$ 10,00</div>
+            </div>
+            <div class="sub-row">
+              <div class="left"><span class="dot shared"></span><div><div class="name">Spotify Duo</div><div class="sub">Compartilhada · vence dia 18</div></div></div>
+              <div class="price">R$ 12,00</div>
+            </div>
+            <div class="sub-row">
+              <div class="left"><span class="dot personal"></span><div><div class="name">Amazon Music</div><div class="sub">Pessoal · vence dia 20</div></div></div>
+              <div class="price">R$ 16,90</div>
+            </div>
+          </div>
+
+          <div class="bottom-nav">
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7v9a1 1 0 01-1 1h-4v-6H9v6H5a1 1 0 01-1-1z"/></svg>Início</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></svg>Buscar</div>
+            <div class="nav-item on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V10M12 19V5M20 19v-7"/></svg>Gestor</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6z"/></svg>Avisos</div>
+            <div class="nav-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>Mais</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="notes-col">
+      <p class="note"><b>Padrão observado:</b> o gestor tem espaço próprio na navegação inferior — reforça que ele funciona mesmo pra quem nunca entrou num grupo do marketplace.</p>
+      <p class="note"><b>Nota de produto:</b> ponto azul = assinatura compartilhada, ponto cinza = pessoal — mesma lógica de cor usada nos selos, só que aplicada a dados financeiros.</p>
     </div>
   </div>
 </div>
