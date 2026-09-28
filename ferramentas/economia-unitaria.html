@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Simulador de Unit Economics</title>
 <meta name="description" content="Simulação da economia unitária do Projeto Split: quanto a taxa da plataforma precisa cobrir e qual margem sobra por transação.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,6 +84,7 @@ h1{font-size:1.5rem;margin:6px 0 6px;font-weight:700;}
 header.page p{color:var(--muted);font-size:.92rem;max-width:70ch;line-height:1.55;margin:0;}
 
 .layout{display:grid;grid-template-columns:340px 1fr;gap:20px;align-items:start;}
+.layout > *{min-width:0;}
 @media (max-width:920px){ .layout{grid-template-columns:1fr;} }
 
 .card{
@@ -98,6 +104,7 @@ legend{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:
 }
 .field label .val{font-family:"IBM Plex Mono";font-weight:700;color:var(--primary);}
 .field input[type="range"]{width:100%;accent-color:var(--primary);}
+.field input[type="range"]:focus-visible{outline:2px solid var(--focus);outline-offset:4px;}
 .field input[type="number"]{
   width:100%;font:inherit;font-size:.86rem;padding:8px 10px;border-radius:8px;
   border:1px solid var(--border);background:var(--bg);color:var(--text);
@@ -142,7 +149,7 @@ legend{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:
 .dot.margem{background:var(--success);}
 
 /* sensitivity table */
-table{width:100%;border-collapse:collapse;font-size:.85rem;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:.85rem;}
 th, td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--border);}
 th:first-child, td:first-child{text-align:left;}
 thead th{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;}
@@ -157,7 +164,17 @@ td.neg{color:var(--danger);font-weight:600;}
   padding:12px 14px;margin-top:18px;
 }
 .note b{color:var(--warn);}
+@media (max-width:520px){
+  body{padding-inline:12px;padding-block:16px 28px;}
+  h1{font-size:1.3rem;}
+  .card{padding:17px 15px;}
+  .stat-row{grid-template-columns:1fr;}
+  .field label{align-items:flex-start;}
+  .field label .val{text-align:right;}
+}
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header class="page">
@@ -459,3 +476,5 @@ td.neg{color:var(--danger);font-weight:600;}
   render();
 })();
 </script>
+</body>
+</html>

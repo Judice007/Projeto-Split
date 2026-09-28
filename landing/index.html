@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Projeto Split</title>
 <meta name="description" content="Todas as suas assinaturas em um só lugar. Compartilhe quando puder. Economize quando quiser. Entre na lista de interessados do Projeto Split.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,6 +85,9 @@ body{
 .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;}
 a{color:inherit;}
 img,svg{max-width:100%;}
+:where(a,button,input,summary):focus-visible{
+  outline:2px solid var(--primary);outline-offset:3px;
+}
 
 .container{max-width:1100px;margin-inline:auto;padding-inline:20px;}
 section{padding-block:60px;}
@@ -189,6 +197,16 @@ h1{
 .form-status{font-size:.84rem;margin-top:12px;padding:10px 12px;border-radius:9px;line-height:1.4;}
 .form-status.ok{background:var(--primary-soft);color:var(--primary-dark);}
 .form-status[hidden]{display:none;}
+.privacy-note{font-size:.72rem;color:var(--muted);line-height:1.45;margin:10px 0 0;}
+@media (max-width:520px){
+  .container{padding-inline:16px;}
+  .nav-row{padding-inline:16px;}
+  .wordmark .prov{display:none;}
+  .hero{padding-top:40px;}
+  .form-card{padding:22px 18px;}
+  .radio-row{display:grid;grid-template-columns:1fr;}
+  .radio-opt{min-height:44px;}
+}
 
 /* icon tiles */
 .icon-tile{
@@ -279,6 +297,8 @@ footer .container{display:flex;flex-direction:column;gap:14px;}
 .disclaimer b{color:var(--warn);}
 footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center;}
 </style>
+</head>
+<body>
 
 <nav class="nav">
   <div class="nav-row">
@@ -344,8 +364,9 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
         <input id="f-servico" name="servico" type="text" placeholder="Ex: Netflix, Spotify, Google One...">
       </div>
 
-      <button type="submit" class="submit-btn">Quero entrar na lista</button>
-      <p class="form-status" id="formStatus" hidden></p>
+      <button type="submit" class="submit-btn">Abrir meu e-mail para confirmar</button>
+      <p class="privacy-note">Seus dados só serão enviados quando você confirmar o envio no seu aplicativo de e-mail. Esta página não salva seu cadastro.</p>
+      <p class="form-status" id="formStatus" role="status" aria-live="polite" hidden></p>
     </form>
   </div>
 </header>
@@ -506,13 +527,6 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
 
     if(!nome || !email){ return; }
 
-    try{
-      var key = "split-interessados";
-      var list = JSON.parse(localStorage.getItem(key) || "[]");
-      list.push({ nome: nome, email: email, papel: papel, servico: servico, data: new Date().toISOString() });
-      localStorage.setItem(key, JSON.stringify(list));
-    }catch(err){ /* localStorage indisponível — segue só com o e-mail */ }
-
     var subject = encodeURIComponent("Quero entrar na lista do Projeto Split");
     var bodyLines = [
       "Nome: " + nome,
@@ -525,7 +539,7 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
 
     status.hidden = false;
     status.classList.add("ok");
-    status.textContent = "Quase lá — vamos abrir seu e-mail com os dados preenchidos. É só enviar para confirmar seu interesse.";
+    status.textContent = "Quase lá: seu aplicativo de e-mail será aberto com os dados preenchidos. Revise e envie a mensagem para confirmar seu interesse.";
 
     window.location.href = mailto;
   });
@@ -551,3 +565,5 @@ footer .meta{font-size:.78rem;color:var(--muted);display:flex;justify-content:sp
   }
 })();
 </script>
+</body>
+</html>

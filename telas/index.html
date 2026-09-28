@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Telas do Split</title>
 <meta name="description" content="Mockups de alta fidelidade das telas de login, marketplace e perfil do Projeto Split, para referência de desenvolvimento.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,6 +75,9 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55
 }
 .tab[aria-selected="true"]{background:var(--primary-soft);color:var(--primary-dark);border-color:transparent;}
 .tab:hover{border-color:var(--primary);}
+.tab:focus-visible,.btn:focus-visible,.submit-btn:focus-visible,.google-btn:focus-visible,.gc-cta:focus-visible,.ptab:focus-visible{
+  outline:2px solid var(--primary);outline-offset:3px;
+}
 
 .screen{display:none;}
 .screen.active{display:block;}
@@ -225,6 +233,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55
 
 .profile-tabs{display:flex;gap:4px;margin-top:26px;border-bottom:1px solid var(--border);}
 .ptab{
+  appearance:none;background:transparent;border:0;font:inherit;
   padding:11px 4px;margin-right:22px;font-size:.86rem;font-weight:600;color:var(--muted);
   border-bottom:2px solid transparent;cursor:pointer;
 }
@@ -251,32 +260,61 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55
   padding:12px 14px;margin-top:22px;
 }
 .note b{color:var(--warn);}
+@media (max-width:720px){
+  body{padding-inline:12px;padding-block:18px 32px;}
+  h1{font-size:1.3rem;}
+  .tabs{margin:16px 0 20px;display:grid;grid-template-columns:repeat(3,1fr);}
+  .tab{justify-content:center;padding-inline:8px;}
+  .browser{border-radius:12px;}
+  .browser-bar{padding:9px 10px;}
+  .dots{display:none;}
+  .url{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .site-nav{padding:12px 16px;}
+  .nav-links{display:none;}
+  .nav-right .btn{display:none;}
+  .login-wrap{min-height:auto;padding:28px 12px;}
+  .login-card{padding:28px 20px;}
+  .mkt-body{padding:20px 16px;}
+  .search-input{min-width:0;width:100%;}
+  .search-row .btn{width:100%;}
+  .card-grid{grid-template-columns:1fr;}
+  .profile-body{padding:0 16px 20px;}
+  .profile-head{gap:12px;}
+  .profile-avatar{width:78px;height:78px;font-size:1.4rem;}
+  .profile-info{min-width:180px;}
+  .stat-strip{grid-template-columns:repeat(2,1fr);}
+  .profile-tabs{overflow-x:auto;}
+  .ptab{flex:none;margin-right:14px;white-space:nowrap;}
+  .mini-group{align-items:flex-start;gap:10px;flex-direction:column;}
+}
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header class="page">
     <span class="eyebrow">Etapa 2 · Produto</span>
     <h1>Telas do Split — referência de alta fidelidade</h1>
-    <p>Mockups navegáveis das telas centrais do MVP (seção 11 do Documento Mestre), usando o sistema visual provisório já aplicado na landing page. Servem como referência para o wireframe virar código — layout, hierarquia e conteúdo real, não a marca definitiva.</p>
+    <p>Mockups navegáveis das telas centrais do MVP (seção 11 do Documento Mestre), usando o sistema visual provisório já aplicado na landing page. Servem como referência para o wireframe virar código — layout, hierarquia e conteúdo plausível para teste, não dados reais nem a marca definitiva.</p>
   </header>
 
-  <div class="tabs" role="tablist">
-    <button class="tab" data-screen="login" aria-selected="true">
+  <div class="tabs" role="tablist" aria-label="Telas de referência">
+    <button type="button" class="tab" id="tab-login" role="tab" data-screen="login" aria-controls="screen-login" aria-selected="true" tabindex="0">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
       Entrar
     </button>
-    <button class="tab" data-screen="marketplace" aria-selected="false">
+    <button type="button" class="tab" id="tab-marketplace" role="tab" data-screen="marketplace" aria-controls="screen-marketplace" aria-selected="false" tabindex="-1">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></svg>
       Marketplace
     </button>
-    <button class="tab" data-screen="perfil" aria-selected="false">
+    <button type="button" class="tab" id="tab-perfil" role="tab" data-screen="perfil" aria-controls="screen-perfil" aria-selected="false" tabindex="-1">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c1.2-4 3.8-6 7-6s5.8 2 7 6"/></svg>
       Perfil
     </button>
   </div>
 
   <!-- LOGIN -->
-  <div class="screen active" id="screen-login">
+  <div class="screen active" id="screen-login" role="tabpanel" aria-labelledby="tab-login">
     <div class="browser">
       <div class="browser-bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">split.app/entrar</div></div>
       <div class="browser-body">
@@ -322,7 +360,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55
   </div>
 
   <!-- MARKETPLACE -->
-  <div class="screen" id="screen-marketplace">
+  <div class="screen" id="screen-marketplace" role="tabpanel" aria-labelledby="tab-marketplace">
     <div class="browser">
       <div class="browser-bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">split.app/marketplace</div></div>
       <div class="browser-body">
@@ -344,7 +382,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55
           <div class="mkt-head">
             <div>
               <h2>Encontre um grupo com vaga</h2>
-              <p>128 grupos ativos em 6 categorias aprovadas</p>
+            <p>Exemplos simulados em categorias ainda sob validação</p>
             </div>
           </div>
           <div class="search-row">
@@ -465,7 +503,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55
   </div>
 
   <!-- PERFIL -->
-  <div class="screen" id="screen-perfil">
+  <div class="screen" id="screen-perfil" role="tabpanel" aria-labelledby="tab-perfil">
     <div class="browser">
       <div class="browser-bar"><div class="dots"><i></i><i></i><i></i></div><div class="url">split.app/perfil/maria-silva</div></div>
       <div class="browser-body">
@@ -500,26 +538,26 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55
             <div class="stat-cell"><div class="v">14</div><div class="l">ciclos concluídos</div></div>
           </div>
 
-          <div class="profile-tabs">
-            <div class="ptab on" data-ptab="sobre">Sobre</div>
-            <div class="ptab" data-ptab="grupos">Grupos que administra</div>
-            <div class="ptab" data-ptab="avaliacoes">Avaliações</div>
+          <div class="profile-tabs" role="tablist" aria-label="Detalhes do perfil">
+            <button type="button" class="ptab on" id="profile-tab-sobre" role="tab" data-ptab="sobre" aria-controls="ptab-sobre" aria-selected="true" tabindex="0">Sobre</button>
+            <button type="button" class="ptab" id="profile-tab-grupos" role="tab" data-ptab="grupos" aria-controls="ptab-grupos" aria-selected="false" tabindex="-1">Grupos que administra</button>
+            <button type="button" class="ptab" id="profile-tab-avaliacoes" role="tab" data-ptab="avaliacoes" aria-controls="ptab-avaliacoes" aria-selected="false" tabindex="-1">Avaliações</button>
           </div>
 
-          <div class="profile-panel" id="ptab-sobre">
+          <div class="profile-panel" id="ptab-sobre" role="tabpanel" aria-labelledby="profile-tab-sobre">
             <div class="about-box">
               <p style="margin:0 0 10px;"><b style="color:var(--ink);">Como a reputação é calculada:</b> tempo de atividade, ciclos concluídos, taxa de cancelamento, disputas procedentes e tempo de resposta — nunca comprada, só conquistada por histórico (seção 7.3 do Documento Mestre).</p>
               <p style="margin:0;">0 disputas procedentes contra este perfil nos últimos 12 meses.</p>
             </div>
           </div>
 
-          <div class="profile-panel" id="ptab-grupos" hidden>
+          <div class="profile-panel" id="ptab-grupos" role="tabpanel" aria-labelledby="profile-tab-grupos" hidden>
             <div class="mini-group"><span><b>Netflix Família</b> · Streaming de vídeo</span><span class="badge verified">3/4 vagas · Publicado</span></div>
             <div class="mini-group"><span><b>Disney+ Padrão</b> · Streaming de vídeo</span><span class="badge verified">2/4 vagas · Publicado</span></div>
             <div class="mini-group"><span><b>Google One 2TB</b> · Armazenamento</span><span class="badge pro">Em análise</span></div>
           </div>
 
-          <div class="profile-panel" id="ptab-avaliacoes" hidden>
+          <div class="profile-panel" id="ptab-avaliacoes" role="tabpanel" aria-labelledby="profile-tab-avaliacoes" hidden>
             <div class="review">
               <span class="mini-avatar"></span>
               <div>
@@ -551,10 +589,19 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55
   var screens = document.querySelectorAll(".screen");
   tabs.forEach(function(tab){
     tab.addEventListener("click", function(){
-      tabs.forEach(function(t){ t.setAttribute("aria-selected","false"); });
+      tabs.forEach(function(t){ t.setAttribute("aria-selected","false"); t.setAttribute("tabindex","-1"); });
       tab.setAttribute("aria-selected","true");
+      tab.setAttribute("tabindex","0");
       screens.forEach(function(s){ s.classList.remove("active"); });
       document.getElementById("screen-" + tab.dataset.screen).classList.add("active");
+    });
+    tab.addEventListener("keydown", function(e){
+      if(!["ArrowLeft","ArrowRight","Home","End"].includes(e.key)){ return; }
+      e.preventDefault();
+      var current = Array.prototype.indexOf.call(tabs, tab);
+      var next = e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : (current + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[next].focus();
+      tabs[next].click();
     });
   });
 
@@ -562,10 +609,22 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.55
   var panels = { sobre: document.getElementById("ptab-sobre"), grupos: document.getElementById("ptab-grupos"), avaliacoes: document.getElementById("ptab-avaliacoes") };
   ptabs.forEach(function(pt){
     pt.addEventListener("click", function(){
-      ptabs.forEach(function(p){ p.classList.remove("on"); });
+      ptabs.forEach(function(p){ p.classList.remove("on"); p.setAttribute("aria-selected","false"); p.setAttribute("tabindex","-1"); });
       pt.classList.add("on");
+      pt.setAttribute("aria-selected","true");
+      pt.setAttribute("tabindex","0");
       Object.keys(panels).forEach(function(k){ panels[k].hidden = (k !== pt.dataset.ptab); });
+    });
+    pt.addEventListener("keydown", function(e){
+      if(!["ArrowLeft","ArrowRight","Home","End"].includes(e.key)){ return; }
+      e.preventDefault();
+      var current = Array.prototype.indexOf.call(ptabs, pt);
+      var next = e.key === "Home" ? 0 : e.key === "End" ? ptabs.length - 1 : (current + (e.key === "ArrowRight" ? 1 : -1) + ptabs.length) % ptabs.length;
+      ptabs[next].focus();
+      ptabs[next].click();
     });
   });
 })();
 </script>
+</body>
+</html>

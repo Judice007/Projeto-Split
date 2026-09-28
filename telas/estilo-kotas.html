@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Split — estilo Kotas</title>
 <meta name="description" content="Telas de login, início e perfil do Split no padrão visual real do Kotas: azul, preto e branco, app mobile minimalista.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,6 +67,9 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
 }
 .tab[aria-selected="true"]{background:var(--blue);color:var(--blue-ink);border-color:var(--blue);}
 .tab:hover{border-color:var(--blue);}
+.tab:focus-visible,.social-btn:focus-visible,.enter-btn:focus-visible,.primary-btn:focus-visible,.outline-btn:focus-visible,input:focus-visible{
+  outline:2px solid var(--blue);outline-offset:3px;
+}
 
 .screen{display:none;}
 .screen.active{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;}
@@ -252,7 +260,21 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
   margin:10px 16px;background:#FFF3E0;border:1px solid #F5D89B;color:#8A5A12;
   border-radius:12px;padding:10px 12px;font-size:.76rem;font-weight:700;
 }
+@media (max-width:720px){
+  body{padding-inline:12px;padding-block:18px 32px;}
+  h1{font-size:1.3rem;}
+  .compare-note{border-radius:14px;line-height:1.4;}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:16px 0 22px;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{flex:none;min-height:44px;}
+  .screen.active{display:grid;grid-template-columns:minmax(0,1fr);}
+  .phone-col{width:100%;}
+  .phone{width:min(100%,340px);border-radius:28px;}
+  .notes-col{width:100%;max-width:none;min-width:0;}
+}
 </style>
+</head>
+<body>
 
 <div class="wrap">
   <header class="page">
@@ -262,18 +284,18 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
     <span class="compare-note">Referência para comparação — a marca definitiva do Split só vem depois da validação (Etapa 6)</span>
   </header>
 
-  <div class="tabs" role="tablist">
-    <button class="tab" data-screen="login" aria-selected="true">Login</button>
-    <button class="tab" data-screen="home" aria-selected="false">Início</button>
-    <button class="tab" data-screen="perfil" aria-selected="false">Perfil</button>
-    <button class="tab" data-screen="grupo" aria-selected="false">Página do grupo</button>
-    <button class="tab" data-screen="checkout" aria-selected="false">Checkout</button>
-    <button class="tab" data-screen="criar" aria-selected="false">Criar grupo</button>
-    <button class="tab" data-screen="gestor" aria-selected="false">Gestor</button>
+  <div class="tabs" role="tablist" aria-label="Comparação de telas">
+    <button type="button" class="tab" id="tab-login" role="tab" data-screen="login" aria-controls="screen-login" aria-selected="true" tabindex="0">Login</button>
+    <button type="button" class="tab" id="tab-home" role="tab" data-screen="home" aria-controls="screen-home" aria-selected="false" tabindex="-1">Início</button>
+    <button type="button" class="tab" id="tab-perfil" role="tab" data-screen="perfil" aria-controls="screen-perfil" aria-selected="false" tabindex="-1">Perfil</button>
+    <button type="button" class="tab" id="tab-grupo" role="tab" data-screen="grupo" aria-controls="screen-grupo" aria-selected="false" tabindex="-1">Página do grupo</button>
+    <button type="button" class="tab" id="tab-checkout" role="tab" data-screen="checkout" aria-controls="screen-checkout" aria-selected="false" tabindex="-1">Checkout</button>
+    <button type="button" class="tab" id="tab-criar" role="tab" data-screen="criar" aria-controls="screen-criar" aria-selected="false" tabindex="-1">Criar grupo</button>
+    <button type="button" class="tab" id="tab-gestor" role="tab" data-screen="gestor" aria-controls="screen-gestor" aria-selected="false" tabindex="-1">Gestor</button>
   </div>
 
   <!-- LOGIN -->
-  <div class="screen active" id="screen-login">
+  <div class="screen active" id="screen-login" role="tabpanel" aria-labelledby="tab-login">
     <div class="phone-col">
       <div class="phone">
         <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
@@ -320,7 +342,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
   </div>
 
   <!-- HOME / MARKETPLACE -->
-  <div class="screen" id="screen-home">
+  <div class="screen" id="screen-home" role="tabpanel" aria-labelledby="tab-home">
     <div class="phone-col">
       <div class="phone">
         <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
@@ -402,7 +424,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
   </div>
 
   <!-- PERFIL -->
-  <div class="screen" id="screen-perfil">
+  <div class="screen" id="screen-perfil" role="tabpanel" aria-labelledby="tab-perfil">
     <div class="phone-col">
       <div class="phone">
         <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
@@ -449,7 +471,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
   </div>
 
   <!-- PÁGINA DO GRUPO -->
-  <div class="screen" id="screen-grupo">
+  <div class="screen" id="screen-grupo" role="tabpanel" aria-labelledby="tab-grupo">
     <div class="phone-col">
       <div class="phone">
         <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
@@ -496,7 +518,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
   </div>
 
   <!-- CHECKOUT -->
-  <div class="screen" id="screen-checkout">
+  <div class="screen" id="screen-checkout" role="tabpanel" aria-labelledby="tab-checkout">
     <div class="phone-col">
       <div class="phone">
         <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
@@ -531,7 +553,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
   </div>
 
   <!-- CRIAR GRUPO -->
-  <div class="screen" id="screen-criar">
+  <div class="screen" id="screen-criar" role="tabpanel" aria-labelledby="tab-criar">
     <div class="phone-col">
       <div class="phone">
         <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
@@ -581,7 +603,7 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
   </div>
 
   <!-- GESTOR -->
-  <div class="screen" id="screen-gestor">
+  <div class="screen" id="screen-gestor" role="tabpanel" aria-labelledby="tab-gestor">
     <div class="phone-col">
       <div class="phone">
         <div class="statusbar"><span>22:50</span><span class="icons">●●●●</span></div>
@@ -642,11 +664,22 @@ header.page p{color:var(--muted);font-size:.9rem;max-width:70ch;line-height:1.6;
   var screens = document.querySelectorAll(".screen");
   tabs.forEach(function(tab){
     tab.addEventListener("click", function(){
-      tabs.forEach(function(t){ t.setAttribute("aria-selected","false"); });
+      tabs.forEach(function(t){ t.setAttribute("aria-selected","false"); t.setAttribute("tabindex","-1"); });
       tab.setAttribute("aria-selected","true");
+      tab.setAttribute("tabindex","0");
       screens.forEach(function(s){ s.classList.remove("active"); });
       document.getElementById("screen-" + tab.dataset.screen).classList.add("active");
+    });
+    tab.addEventListener("keydown", function(e){
+      if(!["ArrowLeft","ArrowRight","Home","End"].includes(e.key)){ return; }
+      e.preventDefault();
+      var current = Array.prototype.indexOf.call(tabs, tab);
+      var next = e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : (current + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+      tabs[next].focus();
+      tabs[next].click();
     });
   });
 })();
 </script>
+</body>
+</html>

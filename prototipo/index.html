@@ -1,3 +1,8 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Protótipo Split</title>
 <style>
 :root{
@@ -223,7 +228,31 @@ a{color:inherit;}
 .m-divider{height:1px;background:var(--border);margin:2px 0;}
 .m-star{color:var(--primary);font-size:.72rem;}
 .m-help{font-size:.68rem;color:var(--muted);line-height:1.4;}
+@media (max-width:900px){
+  .journey-tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;}
+  .journey-tabs::-webkit-scrollbar{display:none;}
+  .jtab{flex:none;min-height:44px;}
+  .rail{position:static;overflow-x:auto;scrollbar-width:none;padding:8px;}
+  .rail::-webkit-scrollbar{display:none;}
+  .rail h2{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+  #railList{display:flex;gap:6px;width:max-content;}
+  .rail-item{width:auto;min-width:max-content;align-items:center;padding:9px 12px;}
+  .phone-col{order:2;}
+  .panel{order:3;}
+}
+@media (max-width:520px){
+  body{padding-inline:12px;padding-block:16px 28px;}
+  .topbar{align-items:flex-start;}
+  .badge-status{white-space:normal;line-height:1.35;}
+  .layout{gap:16px;}
+  .phone{border-radius:28px;padding-inline:10px;}
+  .nav-controls{width:100%;justify-content:space-between;}
+  .nav-btn{min-height:44px;padding-inline:12px;}
+  .panel{padding:16px;}
+}
 </style>
+</head>
+<body>
 
 <div class="wrap">
 
@@ -729,3 +758,5 @@ a{color:inherit;}
   renderScreen();
 })();
 </script>
+</body>
+</html>

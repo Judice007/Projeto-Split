@@ -16,7 +16,7 @@ Página de captação (lista de espera) em [`landing/index.html`](landing/index.
 
 Versão hospedada para visualização rápida: https://claude.ai/artifact/82ogQCBhc6GCrjZJ5HXALv
 
-> Antes de divulgar de verdade: o link hospedado é privado por padrão (precisa liberar compartilhamento no menu da página). O formulário usa `mailto:` como captação mínima — considere trocar por um formulário de verdade (Google Forms, Tally, Formspree) antes de uma divulgação ampla, para não depender do cliente de e-mail de cada visitante.
+> Antes de divulgar de verdade: o link hospedado é privado por padrão (precisa liberar compartilhamento no menu da página). O formulário usa `mailto:` como captação mínima, não salva dados no navegador e só confirma o interesse quando a pessoa envia o e-mail. Troque por um formulário com backend próprio ou um serviço aprovado (Google Forms, Tally, Formspree) antes de uma divulgação ampla.
 
 ## Protótipo navegável
 
